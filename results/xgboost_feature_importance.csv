@@ -1,0 +1,14 @@
+feature,importance
+pm25_lag1,0.7088934
+pm25_rolling_mean_4,0.10011782
+pm25_lag4,0.03426755
+temp_celsius,0.02405018
+blh,0.020656807
+day_of_month,0.01965504
+lat,0.014729185
+pm25_lag96,0.014141098
+hour,0.013816605
+wind_speed,0.01378845
+wind_direction,0.013002712
+day_of_week,0.012326109
+lon,0.010555101

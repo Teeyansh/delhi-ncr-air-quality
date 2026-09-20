@@ -1,0 +1,23 @@
+# Environments / IDE
+venv/
+.venv/
+env/
+.idea/
+.vscode/
+
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Large raw + intermediate data (re-create it with the pipeline in src/)
+data/*
+!data/.gitkeep
+*.nc
+
+# OS
+.DS_Store
+Thumbs.db

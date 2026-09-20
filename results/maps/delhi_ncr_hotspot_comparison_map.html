@@ -1,0 +1,3490 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_c085c6c496143b80b5f422f2c8cccd61 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_c085c6c496143b80b5f422f2c8cccd61" ></div>
+        
+    
+<div style="position: fixed; bottom: 30px; left: 30px; z-index: 9999; background-color: white;
+    padding: 12px 16px; border: 2px solid #444; border-radius: 6px; font-size: 13px;
+    line-height: 1.6; box-shadow: 2px 2px 6px rgba(0,0,0,0.3); max-width: 260px;">
+    <b>Delhi-NCR Pollution Hotspots</b><br>
+    Use the layer control (top-right) to switch between the PM2.5-only and composite-index definitions.<br><br>
+    <span style="color:purple; font-size:16px;">&#9679;</span>
+    <span style="color:green; font-size:16px;">&#9679;</span>
+    <span style="color:black; font-size:16px;">&#9679;</span>
+    <span style="color:orange; font-size:16px;">&#9679;</span>
+    Hotspot clusters <i>(color = cluster ID)</i><br>
+    <span style="color:lightblue; font-size:16px;">&#9679;</span> Below hotspot threshold<br>
+    <span style="color:lightgray; font-size:16px;">&#9679;</span> Noise (not in any cluster)<br>
+    <span style="border: 2px dashed red; padding: 0 6px;">&nbsp;&nbsp;</span> Hotspot boundary (~3 km)
+</div>
+</body>
+<script>
+    
+    
+            var map_c085c6c496143b80b5f422f2c8cccd61 = L.map(
+                "map_c085c6c496143b80b5f422f2c8cccd61",
+                {
+                    center: [28.608270186908985, 77.21150506546856],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 10,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_f5cb210c2c1784b9e5e5998f9e8cc054 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_f5cb210c2c1784b9e5e5998f9e8cc054.addTo(map_c085c6c496143b80b5f422f2c8cccd61);
+        
+    
+            var feature_group_ae944c92ce7e1f105f6e463510b4801a = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_c7d5e5419886725ef3734283ef48f236 = L.circleMarker(
+                [28.563262, 77.186937],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_5c3e47ff4c71aba02bd5b9fae40140b2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_fc8eb7c93dcff4d99667fe6194cc2cd1 = $(`<div id="html_fc8eb7c93dcff4d99667fe6194cc2cd1" style="width: 100.0%; height: 100.0%;"><b>R K Puram, Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 44.7<br>Pollution Index: 0.333</div>`)[0];
+                popup_5c3e47ff4c71aba02bd5b9fae40140b2.setContent(html_fc8eb7c93dcff4d99667fe6194cc2cd1);
+            
+        
+
+        circle_marker_c7d5e5419886725ef3734283ef48f236.bindPopup(popup_5c3e47ff4c71aba02bd5b9fae40140b2)
+        ;
+
+        
+    
+    
+            var circle_marker_dd0c3d5f547637a8f21ad5917cc5f9b3 = L.circleMarker(
+                [28.674045, 77.131023],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_4dc17663283a44a99e6f721e27610b74 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_43007701aa2680f1f4993a5931aa4d65 = $(`<div id="html_43007701aa2680f1f4993a5931aa4d65" style="width: 100.0%; height: 100.0%;"><b>Punjabi Bagh, Delhi - DPCC</b><br>Cluster: 1<br>PM2.5: 37.8<br>Pollution Index: 0.414</div>`)[0];
+                popup_4dc17663283a44a99e6f721e27610b74.setContent(html_43007701aa2680f1f4993a5931aa4d65);
+            
+        
+
+        circle_marker_dd0c3d5f547637a8f21ad5917cc5f9b3.bindPopup(popup_4dc17663283a44a99e6f721e27610b74)
+        ;
+
+        
+    
+    
+            var circle_marker_8b0d3921df81b2266ab37397957c16a0 = L.circleMarker(
+                [28.646835, 77.316032],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_3bb54a2bac843b56d82e1d652c9d183e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_835baf8ba5878791f649e0ae6f0bded2 = $(`<div id="html_835baf8ba5878791f649e0ae6f0bded2" style="width: 100.0%; height: 100.0%;"><b>Anand Vihar, New Delhi - DPCC</b><br>Cluster: 2<br>PM2.5: 87.0<br>Pollution Index: 0.622</div>`)[0];
+                popup_3bb54a2bac843b56d82e1d652c9d183e.setContent(html_835baf8ba5878791f649e0ae6f0bded2);
+            
+        
+
+        circle_marker_8b0d3921df81b2266ab37397957c16a0.bindPopup(popup_3bb54a2bac843b56d82e1d652c9d183e)
+        ;
+
+        
+    
+    
+            var circle_marker_3d0c2fd43d419495b2427a4d5554f9b5 = L.circleMarker(
+                [28.4501238, 77.0263051],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_24f529c4449f8fb83a4031fd421c2277 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_03ab2c355c51acc03afb6e80a817ee71 = $(`<div id="html_03ab2c355c51acc03afb6e80a817ee71" style="width: 100.0%; height: 100.0%;"><b>Vikas Sadan, Gurugram - HSPCB</b><br>Cluster: -1<br>PM2.5: 55.1<br>Pollution Index: 0.265</div>`)[0];
+                popup_24f529c4449f8fb83a4031fd421c2277.setContent(html_03ab2c355c51acc03afb6e80a817ee71);
+            
+        
+
+        circle_marker_3d0c2fd43d419495b2427a4d5554f9b5.bindPopup(popup_24f529c4449f8fb83a4031fd421c2277)
+        ;
+
+        
+    
+    
+            var circle_marker_51f96121bb27c3c05267c60cf8ec0beb = L.circleMarker(
+                [28.639645, 77.146263],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_3d59a14e53b4857183110809f563021f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b116ee9ae7f7f09cad60f02cc8a9fabb = $(`<div id="html_b116ee9ae7f7f09cad60f02cc8a9fabb" style="width: 100.0%; height: 100.0%;"><b>Pusa, Delhi - IMD</b><br>Cluster: 1<br>PM2.5: 28.8<br>Pollution Index: 0.330</div>`)[0];
+                popup_3d59a14e53b4857183110809f563021f.setContent(html_b116ee9ae7f7f09cad60f02cc8a9fabb);
+            
+        
+
+        circle_marker_51f96121bb27c3c05267c60cf8ec0beb.bindPopup(popup_3d59a14e53b4857183110809f563021f)
+        ;
+
+        
+    
+    
+            var circle_marker_6b4adf6a8d04c2a240b436c534024a1e = L.circleMarker(
+                [28.7256504, 77.2011573],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_ee08f44b7646458f6e4c5b56dc5f1328 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a5aca31cfdeb3f906ca8e64fa6f7dd99 = $(`<div id="html_a5aca31cfdeb3f906ca8e64fa6f7dd99" style="width: 100.0%; height: 100.0%;"><b>Burari Crossing, New Delhi - IMD</b><br>Cluster: -1<br>PM2.5: 33.1<br>Pollution Index: 0.299</div>`)[0];
+                popup_ee08f44b7646458f6e4c5b56dc5f1328.setContent(html_a5aca31cfdeb3f906ca8e64fa6f7dd99);
+            
+        
+
+        circle_marker_6b4adf6a8d04c2a240b436c534024a1e.bindPopup(popup_ee08f44b7646458f6e4c5b56dc5f1328)
+        ;
+
+        
+    
+    
+            var circle_marker_6bced5e00c3325939a849f37719ba609 = L.circleMarker(
+                [28.474261, 77.131606],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_b0f29687259566077612b01bdb28f093 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_25504d0a0ff33563409879c1032386d8 = $(`<div id="html_25504d0a0ff33563409879c1032386d8" style="width: 100.0%; height: 100.0%;"><b>Aya Nagar, New Delhi - IMD</b><br>Cluster: -1<br>PM2.5: 28.7<br>Pollution Index: 0.218</div>`)[0];
+                popup_b0f29687259566077612b01bdb28f093.setContent(html_25504d0a0ff33563409879c1032386d8);
+            
+        
+
+        circle_marker_6bced5e00c3325939a849f37719ba609.bindPopup(popup_b0f29687259566077612b01bdb28f093)
+        ;
+
+        
+    
+    
+            var circle_marker_00c791a4b82d243a475ba46d5ae37218 = L.circleMarker(
+                [28.5504249, 77.2159377],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_816135ee4845c84f14660d0e9db929ba = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_95d4e614a2026fb6e12fa208263aaafa = $(`<div id="html_95d4e614a2026fb6e12fa208263aaafa" style="width: 100.0%; height: 100.0%;"><b>Sirifort, Delhi - CPCB</b><br>Cluster: 0<br>PM2.5: 43.5<br>Pollution Index: 0.354</div>`)[0];
+                popup_816135ee4845c84f14660d0e9db929ba.setContent(html_95d4e614a2026fb6e12fa208263aaafa);
+            
+        
+
+        circle_marker_00c791a4b82d243a475ba46d5ae37218.bindPopup(popup_816135ee4845c84f14660d0e9db929ba)
+        ;
+
+        
+    
+    
+            var circle_marker_7543957763feb74a9a1793a019427071 = L.circleMarker(
+                [28.5447608, 77.3231257],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_3dd0f0f625083e8363bd6ce95102f709 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_85ce8b0aa90463969be2da3b8fb9a6db = $(`<div id="html_85ce8b0aa90463969be2da3b8fb9a6db" style="width: 100.0%; height: 100.0%;"><b>Sector - 125, Noida, UP - UPPCB</b><br>Cluster: -1<br>PM2.5: 34.5<br>Pollution Index: 0.280</div>`)[0];
+                popup_3dd0f0f625083e8363bd6ce95102f709.setContent(html_85ce8b0aa90463969be2da3b8fb9a6db);
+            
+        
+
+        circle_marker_7543957763feb74a9a1793a019427071.bindPopup(popup_3dd0f0f625083e8363bd6ce95102f709)
+        ;
+
+        
+    
+    
+            var circle_marker_7c43d12baa5231ecda38d65f3d5a158b = L.circleMarker(
+                [28.6573814, 77.1585447],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_67c4c9419c21fb0d590e9d2caa78f73f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_cf2c9266e286325db5a0e553a652faf1 = $(`<div id="html_cf2c9266e286325db5a0e553a652faf1" style="width: 100.0%; height: 100.0%;"><b>North Campus, DU, Delhi - IMD</b><br>Cluster: 1<br>PM2.5: 37.1<br>Pollution Index: 0.555</div>`)[0];
+                popup_67c4c9419c21fb0d590e9d2caa78f73f.setContent(html_cf2c9266e286325db5a0e553a652faf1);
+            
+        
+
+        circle_marker_7c43d12baa5231ecda38d65f3d5a158b.bindPopup(popup_67c4c9419c21fb0d590e9d2caa78f73f)
+        ;
+
+        
+    
+    
+            var circle_marker_3e4e5ccf9ef0d11f35d84ddacce010f8 = L.circleMarker(
+                [28.628624, 77.24106],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_5e3ebe1969055d87da69a0c1f5b51ce8 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_214b11d2697cdcf6f29c8464bf5e5253 = $(`<div id="html_214b11d2697cdcf6f29c8464bf5e5253" style="width: 100.0%; height: 100.0%;"><b>ITO, New Delhi - CPCB</b><br>Cluster: 0<br>PM2.5: 34.9<br>Pollution Index: 0.419</div>`)[0];
+                popup_5e3ebe1969055d87da69a0c1f5b51ce8.setContent(html_214b11d2697cdcf6f29c8464bf5e5253);
+            
+        
+
+        circle_marker_3e4e5ccf9ef0d11f35d84ddacce010f8.bindPopup(popup_5e3ebe1969055d87da69a0c1f5b51ce8)
+        ;
+
+        
+    
+    
+            var circle_marker_2d9546b1261919b10844881466160a03 = L.circleMarker(
+                [28.6245479, 77.3577104],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_83724cc25ee9e900085dbe64cd6b8a9b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_92fd86dfe2ee9ae00d12595a33721799 = $(`<div id="html_92fd86dfe2ee9ae00d12595a33721799" style="width: 100.0%; height: 100.0%;"><b>Sector - 62, Noida, UP - IMD</b><br>Cluster: 3<br>PM2.5: 38.0<br>Pollution Index: 0.292</div>`)[0];
+                popup_83724cc25ee9e900085dbe64cd6b8a9b.setContent(html_92fd86dfe2ee9ae00d12595a33721799);
+            
+        
+
+        circle_marker_2d9546b1261919b10844881466160a03.bindPopup(popup_83724cc25ee9e900085dbe64cd6b8a9b)
+        ;
+
+        
+    
+    
+            var circle_marker_66e817de5a59e12018319c4d5fefef20 = L.circleMarker(
+                [28.60909, 77.0325413],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_48a1d7e3475b417abf484e6d49e9bef7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_473fb9d31ebea9fbd8eb55af25df906d = $(`<div id="html_473fb9d31ebea9fbd8eb55af25df906d" style="width: 100.0%; height: 100.0%;"><b>NSIT Dwarka, Delhi - CPCB</b><br>Cluster: -1<br>PM2.5: 18.4<br>Pollution Index: 0.337</div>`)[0];
+                popup_48a1d7e3475b417abf484e6d49e9bef7.setContent(html_473fb9d31ebea9fbd8eb55af25df906d);
+            
+        
+
+        circle_marker_66e817de5a59e12018319c4d5fefef20.bindPopup(popup_48a1d7e3475b417abf484e6d49e9bef7)
+        ;
+
+        
+    
+    
+            var circle_marker_e8cc8bde1c209a34aa80aa4d9eb7bf79 = L.circleMarker(
+                [28.7500499, 77.1112615],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_85ac74bffb0a0521b8e1681cfabad9fb = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2e44d15d5d7034bd0189c33514862dd0 = $(`<div id="html_2e44d15d5d7034bd0189c33514862dd0" style="width: 100.0%; height: 100.0%;"><b>DTU, New Delhi - CPCB</b><br>Cluster: 4<br>PM2.5: 35.4<br>Pollution Index: 0.292</div>`)[0];
+                popup_85ac74bffb0a0521b8e1681cfabad9fb.setContent(html_2e44d15d5d7034bd0189c33514862dd0);
+            
+        
+
+        circle_marker_e8cc8bde1c209a34aa80aa4d9eb7bf79.bindPopup(popup_85ac74bffb0a0521b8e1681cfabad9fb)
+        ;
+
+        
+    
+    
+            var circle_marker_32c5539a09da2bc513f1e90cca696715 = L.circleMarker(
+                [28.5512005, 77.2735737],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_acccf828fe08b320b67b9f788ecd502a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3b66ab64300b86ed161300f592be449d = $(`<div id="html_3b66ab64300b86ed161300f592be449d" style="width: 100.0%; height: 100.0%;"><b>CRRI Mathura Road, New Delhi - IMD</b><br>Cluster: 0<br>PM2.5: 33.3<br>Pollution Index: 0.284</div>`)[0];
+                popup_acccf828fe08b320b67b9f788ecd502a.setContent(html_3b66ab64300b86ed161300f592be449d);
+            
+        
+
+        circle_marker_32c5539a09da2bc513f1e90cca696715.bindPopup(popup_acccf828fe08b320b67b9f788ecd502a)
+        ;
+
+        
+    
+    
+            var circle_marker_4082021fe637084c10326b0cd7ab4a7a = L.circleMarker(
+                [28.6514781, 77.1473105],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_82c012a5544324bc7eadc612698e1e70 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_19c5deb2f812398cc2a6b9daf0db5727 = $(`<div id="html_19c5deb2f812398cc2a6b9daf0db5727" style="width: 100.0%; height: 100.0%;"><b>Shadipur, Delhi - CPCB</b><br>Cluster: 1<br>PM2.5: 23.9<br>Pollution Index: 0.258</div>`)[0];
+                popup_82c012a5544324bc7eadc612698e1e70.setContent(html_19c5deb2f812398cc2a6b9daf0db5727);
+            
+        
+
+        circle_marker_4082021fe637084c10326b0cd7ab4a7a.bindPopup(popup_82c012a5544324bc7eadc612698e1e70)
+        ;
+
+        
+    
+    
+            var circle_marker_8329af811d759b426520172768f70210 = L.circleMarker(
+                [28.5918245, 77.2273074],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_f0135b19eb0d8a99d851ca3a42fa4adf = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_855be6c028a0a8ae0b4d112146c5f075 = $(`<div id="html_855be6c028a0a8ae0b4d112146c5f075" style="width: 100.0%; height: 100.0%;"><b>Lodhi Road, New Delhi - IMD</b><br>Cluster: 0<br>PM2.5: 30.7<br>Pollution Index: 0.222</div>`)[0];
+                popup_f0135b19eb0d8a99d851ca3a42fa4adf.setContent(html_855be6c028a0a8ae0b4d112146c5f075);
+            
+        
+
+        circle_marker_8329af811d759b426520172768f70210.bindPopup(popup_f0135b19eb0d8a99d851ca3a42fa4adf)
+        ;
+
+        
+    
+    
+            var circle_marker_8aacb6b2f2d6f25463f2dd3afc0cd2de = L.circleMarker(
+                [28.5627763, 77.1180053],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_6bf4770090d034bbafc91f0d80f4812b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5be7c216af7c109203c52676ad148b5f = $(`<div id="html_5be7c216af7c109203c52676ad148b5f" style="width: 100.0%; height: 100.0%;"><b>IGI Airport (T3), Delhi - IMD</b><br>Cluster: -1<br>PM2.5: 25.7<br>Pollution Index: 0.425</div>`)[0];
+                popup_6bf4770090d034bbafc91f0d80f4812b.setContent(html_5be7c216af7c109203c52676ad148b5f);
+            
+        
+
+        circle_marker_8aacb6b2f2d6f25463f2dd3afc0cd2de.bindPopup(popup_6bf4770090d034bbafc91f0d80f4812b)
+        ;
+
+        
+    
+    
+            var circle_marker_c7c819bc1a9d49226fbc81f89bb3109e = L.circleMarker(
+                [28.6603346, 77.3572563],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_1c84c49cac4a73998f0ac78bff7dbd8f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2b877a4079220c67a591548b0cb4f61c = $(`<div id="html_2b877a4079220c67a591548b0cb4f61c" style="width: 100.0%; height: 100.0%;"><b>Vasundhara, Ghaziabad - UPPCB</b><br>Cluster: 3<br>PM2.5: 40.7<br>Pollution Index: 0.352</div>`)[0];
+                popup_1c84c49cac4a73998f0ac78bff7dbd8f.setContent(html_2b877a4079220c67a591548b0cb4f61c);
+            
+        
+
+        circle_marker_c7c819bc1a9d49226fbc81f89bb3109e.bindPopup(popup_1c84c49cac4a73998f0ac78bff7dbd8f)
+        ;
+
+        
+    
+    
+            var circle_marker_a0593b7b491916590a62b45c92979040 = L.circleMarker(
+                [28.639645, 77.146262],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_7a778a9066c27bd461544037009f1c26 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_50096489e21f7755291ed32f6e576982 = $(`<div id="html_50096489e21f7755291ed32f6e576982" style="width: 100.0%; height: 100.0%;"><b>Pusa, Delhi - DPCC</b><br>Cluster: 1<br>PM2.5: 30.2<br>Pollution Index: 0.264</div>`)[0];
+                popup_7a778a9066c27bd461544037009f1c26.setContent(html_50096489e21f7755291ed32f6e576982);
+            
+        
+
+        circle_marker_a0593b7b491916590a62b45c92979040.bindPopup(popup_7a778a9066c27bd461544037009f1c26)
+        ;
+
+        
+    
+    
+            var circle_marker_701f8ec8ffddb544fe2419e11f66161a = L.circleMarker(
+                [28.636429, 77.201067],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_7773877013f4307ab02b964386116297 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b911fd1b0fe129ea133304ad3ad9aab1 = $(`<div id="html_b911fd1b0fe129ea133304ad3ad9aab1" style="width: 100.0%; height: 100.0%;"><b>Mandir Marg, New Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 34.1<br>Pollution Index: 0.301</div>`)[0];
+                popup_7773877013f4307ab02b964386116297.setContent(html_b911fd1b0fe129ea133304ad3ad9aab1);
+            
+        
+
+        circle_marker_701f8ec8ffddb544fe2419e11f66161a.bindPopup(popup_7773877013f4307ab02b964386116297)
+        ;
+
+        
+    
+    
+            var circle_marker_d192747eecdc3cb3513c9d1244c8b36d = L.circleMarker(
+                [28.6811736, 77.3025234],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_f870125e4bc7bf62e03ac57262b86c5e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_65dd0497df46f6579fe82e0fa821c035 = $(`<div id="html_65dd0497df46f6579fe82e0fa821c035" style="width: 100.0%; height: 100.0%;"><b>IHBAS, Dilshad Garden,New Delhi - CPCB</b><br>Cluster: 2<br>PM2.5: 32.5<br>Pollution Index: 0.261</div>`)[0];
+                popup_f870125e4bc7bf62e03ac57262b86c5e.setContent(html_65dd0497df46f6579fe82e0fa821c035);
+            
+        
+
+        circle_marker_d192747eecdc3cb3513c9d1244c8b36d.bindPopup(popup_f870125e4bc7bf62e03ac57262b86c5e)
+        ;
+
+        
+    
+    
+            var circle_marker_1efb50f531f13948875b364964f9f98e = L.circleMarker(
+                [28.646233, 77.358075],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_5dadfb61b3bec0c18e0a644cb6ccbdf0 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4727703eb986185d1d0c9b76f40558a9 = $(`<div id="html_4727703eb986185d1d0c9b76f40558a9" style="width: 100.0%; height: 100.0%;"><b>Indirapuram, Ghaziabad - UPPCB</b><br>Cluster: 3<br>PM2.5: 34.2<br>Pollution Index: 0.270</div>`)[0];
+                popup_5dadfb61b3bec0c18e0a644cb6ccbdf0.setContent(html_4727703eb986185d1d0c9b76f40558a9);
+            
+        
+
+        circle_marker_1efb50f531f13948875b364964f9f98e.bindPopup(popup_5dadfb61b3bec0c18e0a644cb6ccbdf0)
+        ;
+
+        
+    
+    
+            var circle_marker_2707c4d17450975fe5f923afee467195 = L.circleMarker(
+                [28.611281, 77.237738],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_79f480c8e3cc74ddb8e20550dd713c8b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_fcf09f119bc6ab41728d1072a8517bbc = $(`<div id="html_fcf09f119bc6ab41728d1072a8517bbc" style="width: 100.0%; height: 100.0%;"><b>Major Dhyan Chand National Stadium, Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 25.8<br>Pollution Index: 0.260</div>`)[0];
+                popup_79f480c8e3cc74ddb8e20550dd713c8b.setContent(html_fcf09f119bc6ab41728d1072a8517bbc);
+            
+        
+
+        circle_marker_2707c4d17450975fe5f923afee467195.bindPopup(popup_79f480c8e3cc74ddb8e20550dd713c8b)
+        ;
+
+        
+    
+    
+            var circle_marker_8bc0bb17aa36e5a0cc5daea3bf0eae3c = L.circleMarker(
+                [28.5710274, 77.0719006],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_407a124f12a48613cad1ad0cb9bd5612 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_cf11f6f9ea3a555db1ff5425e76648dc = $(`<div id="html_cf11f6f9ea3a555db1ff5425e76648dc" style="width: 100.0%; height: 100.0%;"><b>Dwarka-Sector 8, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 23.6<br>Pollution Index: 0.289</div>`)[0];
+                popup_407a124f12a48613cad1ad0cb9bd5612.setContent(html_cf11f6f9ea3a555db1ff5425e76648dc);
+            
+        
+
+        circle_marker_8bc0bb17aa36e5a0cc5daea3bf0eae3c.bindPopup(popup_407a124f12a48613cad1ad0cb9bd5612)
+        ;
+
+        
+    
+    
+            var circle_marker_b05d912ba36785831419990357fa4109 = L.circleMarker(
+                [28.815329, 77.15301],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_46c29ee27a641f3149686c7f7d9aecbb = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_78267c77783cf18b38e7bb2d56be0b76 = $(`<div id="html_78267c77783cf18b38e7bb2d56be0b76" style="width: 100.0%; height: 100.0%;"><b>Alipur, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 34.2<br>Pollution Index: 0.242</div>`)[0];
+                popup_46c29ee27a641f3149686c7f7d9aecbb.setContent(html_78267c77783cf18b38e7bb2d56be0b76);
+            
+        
+
+        circle_marker_b05d912ba36785831419990357fa4109.bindPopup(popup_46c29ee27a641f3149686c7f7d9aecbb)
+        ;
+
+        
+    
+    
+            var circle_marker_5efd0ba259230791fa1c289e27fccb00 = L.circleMarker(
+                [28.498571, 77.26484],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_48c543c13f0a6b531b92487cda8c4a99 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_05aa01f0e2e52948e3642194c912e217 = $(`<div id="html_05aa01f0e2e52948e3642194c912e217" style="width: 100.0%; height: 100.0%;"><b>Dr. Karni Singh Shooting Range, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 29.6<br>Pollution Index: 0.198</div>`)[0];
+                popup_48c543c13f0a6b531b92487cda8c4a99.setContent(html_05aa01f0e2e52948e3642194c912e217);
+            
+        
+
+        circle_marker_5efd0ba259230791fa1c289e27fccb00.bindPopup(popup_48c543c13f0a6b531b92487cda8c4a99)
+        ;
+
+        
+    
+    
+            var circle_marker_40a533ded6168af8bbc008cd3eb62aba = L.circleMarker(
+                [28.6701, 76.9254],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_3361e9635193e80b31f92313fa65da84 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_7da0f86b11c3b2904a1dc19ebce54e63 = $(`<div id="html_7da0f86b11c3b2904a1dc19ebce54e63" style="width: 100.0%; height: 100.0%;"><b>Arya Nagar, Bahadurgarh - HSPCB</b><br>Cluster: -1<br>PM2.5: 30.7<br>Pollution Index: 0.270</div>`)[0];
+                popup_3361e9635193e80b31f92313fa65da84.setContent(html_7da0f86b11c3b2904a1dc19ebce54e63);
+            
+        
+
+        circle_marker_40a533ded6168af8bbc008cd3eb62aba.bindPopup(popup_3361e9635193e80b31f92313fa65da84)
+        ;
+
+        
+    
+    
+            var circle_marker_75b7fe8f5e99a26f45fdf76c72583805 = L.circleMarker(
+                [28.672342, 77.31526],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_834af2bd910b882abab284f6bac14079 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_02143d99bc53386ca8c202b09ff7d94d = $(`<div id="html_02143d99bc53386ca8c202b09ff7d94d" style="width: 100.0%; height: 100.0%;"><b>Vivek Vihar, Delhi - DPCC</b><br>Cluster: 2<br>PM2.5: 34.6<br>Pollution Index: 0.281</div>`)[0];
+                popup_834af2bd910b882abab284f6bac14079.setContent(html_02143d99bc53386ca8c202b09ff7d94d);
+            
+        
+
+        circle_marker_75b7fe8f5e99a26f45fdf76c72583805.bindPopup(popup_834af2bd910b882abab284f6bac14079)
+        ;
+
+        
+    
+    
+            var circle_marker_5ad275f08ebcb19b78bae64088c239eb = L.circleMarker(
+                [28.58028, 77.233829],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_759a11a73de5ec460102cf0a5b27e6f7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_fe64ab449b219373281ee00fe96bcec0 = $(`<div id="html_fe64ab449b219373281ee00fe96bcec0" style="width: 100.0%; height: 100.0%;"><b>Jawaharlal Nehru Stadium, Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 39.8<br>Pollution Index: 0.306</div>`)[0];
+                popup_759a11a73de5ec460102cf0a5b27e6f7.setContent(html_fe64ab449b219373281ee00fe96bcec0);
+            
+        
+
+        circle_marker_5ad275f08ebcb19b78bae64088c239eb.bindPopup(popup_759a11a73de5ec460102cf0a5b27e6f7)
+        ;
+
+        
+    
+    
+            var circle_marker_c1100fc51643d45f16f34ff270560772 = L.circleMarker(
+                [28.623748, 77.287205],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_3166ed74c804397c4e3d9adddc3b0628 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_94da7f3cc46a2d1d04763d5188060ee9 = $(`<div id="html_94da7f3cc46a2d1d04763d5188060ee9" style="width: 100.0%; height: 100.0%;"><b>Patparganj, Delhi - DPCC</b><br>Cluster: 5<br>PM2.5: 26.4<br>Pollution Index: 0.209</div>`)[0];
+                popup_3166ed74c804397c4e3d9adddc3b0628.setContent(html_94da7f3cc46a2d1d04763d5188060ee9);
+            
+        
+
+        circle_marker_c1100fc51643d45f16f34ff270560772.bindPopup(popup_3166ed74c804397c4e3d9adddc3b0628)
+        ;
+
+        
+    
+    
+            var circle_marker_b2e2579c0d53428bdc4fc1cf86434ea4 = L.circleMarker(
+                [28.47272, 77.482],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_86de74485494943caa023f030ddbd481 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1436f892649f6af76151e6f1542b3ddf = $(`<div id="html_1436f892649f6af76151e6f1542b3ddf" style="width: 100.0%; height: 100.0%;"><b>Knowledge Park - III, Greater Noida - UPPCB</b><br>Cluster: -1<br>PM2.5: 31.4<br>Pollution Index: 0.286</div>`)[0];
+                popup_86de74485494943caa023f030ddbd481.setContent(html_1436f892649f6af76151e6f1542b3ddf);
+            
+        
+
+        circle_marker_b2e2579c0d53428bdc4fc1cf86434ea4.bindPopup(popup_86de74485494943caa023f030ddbd481)
+        ;
+
+        
+    
+    
+            var circle_marker_31bece44285d849713a3260b6e640c1f = L.circleMarker(
+                [28.589247, 77.321962],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_aed16d6678977404c51e4b70ce031234 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_6b2c79b3fab499f66bd8eb1b443d76ef = $(`<div id="html_6b2c79b3fab499f66bd8eb1b443d76ef" style="width: 100.0%; height: 100.0%;"><b>Sector-1, Noida - UPPCB</b><br>Cluster: -1<br>PM2.5: 29.9<br>Pollution Index: 0.373</div>`)[0];
+                popup_aed16d6678977404c51e4b70ce031234.setContent(html_6b2c79b3fab499f66bd8eb1b443d76ef);
+            
+        
+
+        circle_marker_31bece44285d849713a3260b6e640c1f.bindPopup(popup_aed16d6678977404c51e4b70ce031234)
+        ;
+
+        
+    
+    
+            var circle_marker_a83ce4d79afdd1f807a0acd9d1cda50c = L.circleMarker(
+                [28.557054, 77.453663],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_6eeadff40ad91a9fc1cf12b00b7da0f7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b010342219b47b4c0fa70ff884d4f8e3 = $(`<div id="html_b010342219b47b4c0fa70ff884d4f8e3" style="width: 100.0%; height: 100.0%;"><b>Knowledge Park - V, Greater Noida - UPPCB</b><br>Cluster: -1<br>PM2.5: 32.8<br>Pollution Index: 0.361</div>`)[0];
+                popup_6eeadff40ad91a9fc1cf12b00b7da0f7.setContent(html_b010342219b47b4c0fa70ff884d4f8e3);
+            
+        
+
+        circle_marker_a83ce4d79afdd1f807a0acd9d1cda50c.bindPopup(popup_6eeadff40ad91a9fc1cf12b00b7da0f7)
+        ;
+
+        
+    
+    
+            var circle_marker_c10630b764b4411fce75f0bfdc0cd15a = L.circleMarker(
+                [28.56923, 77.393848],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_90e3418707f1d850d6ad1ae4b0d6e358 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4bdfb87e6ea0f2e63133d382ba811a43 = $(`<div id="html_4bdfb87e6ea0f2e63133d382ba811a43" style="width: 100.0%; height: 100.0%;"><b>Sector-116, Noida - UPPCB</b><br>Cluster: -1<br>PM2.5: 50.7<br>Pollution Index: 0.444</div>`)[0];
+                popup_90e3418707f1d850d6ad1ae4b0d6e358.setContent(html_4bdfb87e6ea0f2e63133d382ba811a43);
+            
+        
+
+        circle_marker_c10630b764b4411fce75f0bfdc0cd15a.bindPopup(popup_90e3418707f1d850d6ad1ae4b0d6e358)
+        ;
+
+        
+    
+    
+            var circle_marker_ed45a18022bcd71f924e2b2af625495d = L.circleMarker(
+                [28.757294, 77.278792],
+                {"bubblingMouseEvents": true, "color": "cadetblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "cadetblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_2355078e1bdcb32450e3f00a7f916131 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a8e2484af2d666682028e61441e38bcc = $(`<div id="html_a8e2484af2d666682028e61441e38bcc" style="width: 100.0%; height: 100.0%;"><b>Loni, Ghaziabad - UPPCB</b><br>Cluster: 6<br>PM2.5: 34.6<br>Pollution Index: 0.345</div>`)[0];
+                popup_2355078e1bdcb32450e3f00a7f916131.setContent(html_a8e2484af2d666682028e61441e38bcc);
+            
+        
+
+        circle_marker_ed45a18022bcd71f924e2b2af625495d.bindPopup(popup_2355078e1bdcb32450e3f00a7f916131)
+        ;
+
+        
+    
+    
+            var circle_marker_a267bc2deeec7d915db40b0e00f1810a = L.circleMarker(
+                [28.63576, 77.22445],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_3590d9aa5086e70c1500fdf6491e9fe6 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b2a582fba9862c8305ba4c55b657cc81 = $(`<div id="html_b2a582fba9862c8305ba4c55b657cc81" style="width: 100.0%; height: 100.0%;"><b>New Delhi</b><br>Cluster: 0<br>PM2.5: 34.0<br>Pollution Index: 0.361</div>`)[0];
+                popup_3590d9aa5086e70c1500fdf6491e9fe6.setContent(html_b2a582fba9862c8305ba4c55b657cc81);
+            
+        
+
+        circle_marker_a267bc2deeec7d915db40b0e00f1810a.bindPopup(popup_3590d9aa5086e70c1500fdf6491e9fe6)
+        ;
+
+        
+    
+    
+            var circle_marker_4ed86462025f3ac72c893b78bf429e85 = L.circleMarker(
+                [28.73282, 77.170633],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_b701ecb34284634d1e6133456853d3d0 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_03acc5cc7f118bae94dd856f6e7ec3b0 = $(`<div id="html_03acc5cc7f118bae94dd856f6e7ec3b0" style="width: 100.0%; height: 100.0%;"><b>Jahangirpuri, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 46.9<br>Pollution Index: 0.366</div>`)[0];
+                popup_b701ecb34284634d1e6133456853d3d0.setContent(html_03acc5cc7f118bae94dd856f6e7ec3b0);
+            
+        
+
+        circle_marker_4ed86462025f3ac72c893b78bf429e85.bindPopup(popup_b701ecb34284634d1e6133456853d3d0)
+        ;
+
+        
+    
+    
+            var circle_marker_cad2f109c47b98f388207a98d472ff6a = L.circleMarker(
+                [28.530785, 77.271255],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_7697f9c5cf30544a4f61a6ac4ed10cbc = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_215d569bf0d1bde39805d59a20d31a88 = $(`<div id="html_215d569bf0d1bde39805d59a20d31a88" style="width: 100.0%; height: 100.0%;"><b>Okhla Phase-2, Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 32.5<br>Pollution Index: 0.237</div>`)[0];
+                popup_7697f9c5cf30544a4f61a6ac4ed10cbc.setContent(html_215d569bf0d1bde39805d59a20d31a88);
+            
+        
+
+        circle_marker_cad2f109c47b98f388207a98d472ff6a.bindPopup(popup_7697f9c5cf30544a4f61a6ac4ed10cbc)
+        ;
+
+        
+    
+    
+            var circle_marker_9729648efa80cfe40072898c71085eda = L.circleMarker(
+                [28.56789, 77.250515],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_45965fb715a2d3a42cd51337ba493d49 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_31aa5b7bb26d07e5824ad014361cf279 = $(`<div id="html_31aa5b7bb26d07e5824ad014361cf279" style="width: 100.0%; height: 100.0%;"><b>Nehru Nagar, Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 36.3<br>Pollution Index: 0.288</div>`)[0];
+                popup_45965fb715a2d3a42cd51337ba493d49.setContent(html_31aa5b7bb26d07e5824ad014361cf279);
+            
+        
+
+        circle_marker_9729648efa80cfe40072898c71085eda.bindPopup(popup_45965fb715a2d3a42cd51337ba493d49)
+        ;
+
+        
+    
+    
+            var circle_marker_aa3ee8ad4e9faf76865be1bd6d1afe70 = L.circleMarker(
+                [28.7762, 77.051074],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_69653de6ce7e5e2bdcfba632da1c2292 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5bac5ddc4307bb2227ec667015be5b8e = $(`<div id="html_5bac5ddc4307bb2227ec667015be5b8e" style="width: 100.0%; height: 100.0%;"><b>Bawana, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 65.7<br>Pollution Index: 0.294</div>`)[0];
+                popup_69653de6ce7e5e2bdcfba632da1c2292.setContent(html_5bac5ddc4307bb2227ec667015be5b8e);
+            
+        
+
+        circle_marker_aa3ee8ad4e9faf76865be1bd6d1afe70.bindPopup(popup_69653de6ce7e5e2bdcfba632da1c2292)
+        ;
+
+        
+    
+    
+            var circle_marker_af3e2bc88e29a5412297920917da418e = L.circleMarker(
+                [28.710508, 77.249485],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_852aad102710e295239842b1b22ff641 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_62d9b8db43aa737d94de6df45d4da584 = $(`<div id="html_62d9b8db43aa737d94de6df45d4da584" style="width: 100.0%; height: 100.0%;"><b>Sonia Vihar, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 41.8<br>Pollution Index: 0.327</div>`)[0];
+                popup_852aad102710e295239842b1b22ff641.setContent(html_62d9b8db43aa737d94de6df45d4da584);
+            
+        
+
+        circle_marker_af3e2bc88e29a5412297920917da418e.bindPopup(popup_852aad102710e295239842b1b22ff641)
+        ;
+
+        
+    
+    
+            var circle_marker_9b0a3ec530046397bffdcd85504b20fb = L.circleMarker(
+                [28.699793, 77.165453],
+                {"bubblingMouseEvents": true, "color": "darkgreen", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkgreen", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_3b0d8227143ce41e151916e54a77a58d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8db4ff2f153728a965775608ba7317a8 = $(`<div id="html_8db4ff2f153728a965775608ba7317a8" style="width: 100.0%; height: 100.0%;"><b>Wazirpur, Delhi - DPCC</b><br>Cluster: 7<br>PM2.5: 58.8<br>Pollution Index: 0.451</div>`)[0];
+                popup_3b0d8227143ce41e151916e54a77a58d.setContent(html_8db4ff2f153728a965775608ba7317a8);
+            
+        
+
+        circle_marker_9b0a3ec530046397bffdcd85504b20fb.bindPopup(popup_3b0d8227143ce41e151916e54a77a58d)
+        ;
+
+        
+    
+    
+            var circle_marker_bbbce07d086a3fa511ae7474f3089f43 = L.circleMarker(
+                [28.695381, 77.181665],
+                {"bubblingMouseEvents": true, "color": "darkgreen", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkgreen", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_c118706fe39725f42dc6167498b2b46c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9353727709a0af87ada20c2be76f77f7 = $(`<div id="html_9353727709a0af87ada20c2be76f77f7" style="width: 100.0%; height: 100.0%;"><b>Ashok Vihar, Delhi - DPCC</b><br>Cluster: 7<br>PM2.5: 38.8<br>Pollution Index: 0.327</div>`)[0];
+                popup_c118706fe39725f42dc6167498b2b46c.setContent(html_9353727709a0af87ada20c2be76f77f7);
+            
+        
+
+        circle_marker_bbbce07d086a3fa511ae7474f3089f43.bindPopup(popup_c118706fe39725f42dc6167498b2b46c)
+        ;
+
+        
+    
+    
+            var circle_marker_9f5ce189eb3ad5a2f0cd5e4883d9e8a3 = L.circleMarker(
+                [28.531346, 77.190156],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_6ec4a9d75184718ffd9309ad82146811 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_44d6405923262652a18a40ca1c6fb459 = $(`<div id="html_44d6405923262652a18a40ca1c6fb459" style="width: 100.0%; height: 100.0%;"><b>Sri Aurobindo Marg, Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 28.2<br>Pollution Index: 0.295</div>`)[0];
+                popup_6ec4a9d75184718ffd9309ad82146811.setContent(html_44d6405923262652a18a40ca1c6fb459);
+            
+        
+
+        circle_marker_9f5ce189eb3ad5a2f0cd5e4883d9e8a3.bindPopup(popup_6ec4a9d75184718ffd9309ad82146811)
+        ;
+
+        
+    
+    
+            var circle_marker_3119baca87b835129630b6deb301c0cc = L.circleMarker(
+                [28.822836, 77.101981],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_8c48ed12f42f4d6ebd252d60d0f2a5d3 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8238c1f5e365c99851d5077c79d7254c = $(`<div id="html_8238c1f5e365c99851d5077c79d7254c" style="width: 100.0%; height: 100.0%;"><b>Narela, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 29.7<br>Pollution Index: 0.231</div>`)[0];
+                popup_8c48ed12f42f4d6ebd252d60d0f2a5d3.setContent(html_8238c1f5e365c99851d5077c79d7254c);
+            
+        
+
+        circle_marker_3119baca87b835129630b6deb301c0cc.bindPopup(popup_8c48ed12f42f4d6ebd252d60d0f2a5d3)
+        ;
+
+        
+    
+    
+            var circle_marker_726f352fa2be8445c443ddf808637399 = L.circleMarker(
+                [28.684678, 77.076574],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_8e04c22c3865256ff0b432cbc2657190 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_001d748f65698e25439c02aa0bfbb613 = $(`<div id="html_001d748f65698e25439c02aa0bfbb613" style="width: 100.0%; height: 100.0%;"><b>Mundka, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 28.7<br>Pollution Index: 0.303</div>`)[0];
+                popup_8e04c22c3865256ff0b432cbc2657190.setContent(html_001d748f65698e25439c02aa0bfbb613);
+            
+        
+
+        circle_marker_726f352fa2be8445c443ddf808637399.bindPopup(popup_8e04c22c3865256ff0b432cbc2657190)
+        ;
+
+        
+    
+    
+            var circle_marker_b0c9fc1a0027f031961e6bc116366dd3 = L.circleMarker(
+                [28.570173, 76.933762],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_6e088647462f0a597ffebe91fc3d0aa0 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4d852d1f30ea06358652815785d87e8a = $(`<div id="html_4d852d1f30ea06358652815785d87e8a" style="width: 100.0%; height: 100.0%;"><b>Najafgarh, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 24.9<br>Pollution Index: 0.228</div>`)[0];
+                popup_6e088647462f0a597ffebe91fc3d0aa0.setContent(html_4d852d1f30ea06358652815785d87e8a);
+            
+        
+
+        circle_marker_b0c9fc1a0027f031961e6bc116366dd3.bindPopup(popup_6e088647462f0a597ffebe91fc3d0aa0)
+        ;
+
+        
+    
+    
+            var circle_marker_8d8f760f4d8a91724e9bc09387b94570 = L.circleMarker(
+                [28.4417, 77.3217],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_6c7773ea12f1a580ebfc8768449958f0 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a7e5df741cc45364fa85c40d96c7fd8a = $(`<div id="html_a7e5df741cc45364fa85c40d96c7fd8a" style="width: 100.0%; height: 100.0%;"><b>Sector 30, Faridabad - HSPCB</b><br>Cluster: -1<br>PM2.5: 37.8<br>Pollution Index: 0.254</div>`)[0];
+                popup_6c7773ea12f1a580ebfc8768449958f0.setContent(html_a7e5df741cc45364fa85c40d96c7fd8a);
+            
+        
+
+        circle_marker_8d8f760f4d8a91724e9bc09387b94570.bindPopup(popup_6c7773ea12f1a580ebfc8768449958f0)
+        ;
+
+        
+    
+    
+            var circle_marker_b50944a0ee9a71a7372c4d446ffae44e = L.circleMarker(
+                [28.4227, 77.0667],
+                {"bubblingMouseEvents": true, "color": "indigo", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "indigo", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_872729a67b4e008767704f5c9f1c5fde = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8a27775a19a885deae4d4ae0ca102acf = $(`<div id="html_8a27775a19a885deae4d4ae0ca102acf" style="width: 100.0%; height: 100.0%;"><b>Sector-51, Gurugram - HSPCB</b><br>Cluster: 8<br>PM2.5: 59.3<br>Pollution Index: 0.353</div>`)[0];
+                popup_872729a67b4e008767704f5c9f1c5fde.setContent(html_8a27775a19a885deae4d4ae0ca102acf);
+            
+        
+
+        circle_marker_b50944a0ee9a71a7372c4d446ffae44e.bindPopup(popup_872729a67b4e008767704f5c9f1c5fde)
+        ;
+
+        
+    
+    
+            var circle_marker_9d642508e643f1e1bdfcea0e1a993b71 = L.circleMarker(
+                [28.732528, 77.11992],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_1775ff9ac415ca5ca995f5c538dfa901 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9c6295f4e68062555bd2fd19fc524585 = $(`<div id="html_9c6295f4e68062555bd2fd19fc524585" style="width: 100.0%; height: 100.0%;"><b>Rohini, Delhi - DPCC</b><br>Cluster: 4<br>PM2.5: 49.9<br>Pollution Index: 0.264</div>`)[0];
+                popup_1775ff9ac415ca5ca995f5c538dfa901.setContent(html_9c6295f4e68062555bd2fd19fc524585);
+            
+        
+
+        circle_marker_9d642508e643f1e1bdfcea0e1a993b71.bindPopup(popup_1775ff9ac415ca5ca995f5c538dfa901)
+        ;
+
+        
+    
+    
+            var circle_marker_bdaf4bdd7000fceca4e5018eb26c44bc = L.circleMarker(
+                [28.4275, 77.1465],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_f5b78265616e188f5d33756b18a0af9a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_063841078de4253b28fd5c2008b09e75 = $(`<div id="html_063841078de4253b28fd5c2008b09e75" style="width: 100.0%; height: 100.0%;"><b>Teri Gram, Gurugram - HSPCB</b><br>Cluster: 9<br>PM2.5: 62.8<br>Pollution Index: 0.339</div>`)[0];
+                popup_f5b78265616e188f5d33756b18a0af9a.setContent(html_063841078de4253b28fd5c2008b09e75);
+            
+        
+
+        circle_marker_bdaf4bdd7000fceca4e5018eb26c44bc.bindPopup(popup_f5b78265616e188f5d33756b18a0af9a)
+        ;
+
+        
+    
+    
+            var circle_marker_0f74dc6a51f905d5e3792737e941bc39 = L.circleMarker(
+                [28.685382, 77.453839],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_3b9b03aedb8326c9d95af4b5877ab475 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1c059baab2d4ead95cc1c8feb120f7e8 = $(`<div id="html_1c059baab2d4ead95cc1c8feb120f7e8" style="width: 100.0%; height: 100.0%;"><b>Sanjay Nagar, Ghaziabad - UPPCB</b><br>Cluster: -1<br>PM2.5: 27.5<br>Pollution Index: 0.259</div>`)[0];
+                popup_3b9b03aedb8326c9d95af4b5877ab475.setContent(html_1c059baab2d4ead95cc1c8feb120f7e8);
+            
+        
+
+        circle_marker_0f74dc6a51f905d5e3792737e941bc39.bindPopup(popup_3b9b03aedb8326c9d95af4b5877ab475)
+        ;
+
+        
+    
+    
+            var circle_marker_44bb10656fc69643b5b20d705a17930f = L.circleMarker(
+                [28.422681, 77.148944],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_8a5e0ec33098befe87dd0ebe7094aeee = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a618f95db27adb4cbcb3f876fa3ca488 = $(`<div id="html_a618f95db27adb4cbcb3f876fa3ca488" style="width: 100.0%; height: 100.0%;"><b>NISE Gwal Pahari, Gurugram - IMD</b><br>Cluster: 9<br>PM2.5: 31.7<br>Pollution Index: 0.250</div>`)[0];
+                popup_8a5e0ec33098befe87dd0ebe7094aeee.setContent(html_a618f95db27adb4cbcb3f876fa3ca488);
+            
+        
+
+        circle_marker_44bb10656fc69643b5b20d705a17930f.bindPopup(popup_8a5e0ec33098befe87dd0ebe7094aeee)
+        ;
+
+        
+    
+    
+            var circle_marker_e9bc502533d5b04bd7c0e1fed778a04f = L.circleMarker(
+                [28.656756, 77.227234],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_9c2f5635a66069ad9e5ef0a5aae83998 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8629deaf73eb2eac2b5b6aeff4bf5099 = $(`<div id="html_8629deaf73eb2eac2b5b6aeff4bf5099" style="width: 100.0%; height: 100.0%;"><b>Chandni Chowk, Delhi - IITM</b><br>Cluster: 0<br>PM2.5: 42.6<br>Pollution Index: 0.364</div>`)[0];
+                popup_9c2f5635a66069ad9e5ef0a5aae83998.setContent(html_8629deaf73eb2eac2b5b6aeff4bf5099);
+            
+        
+
+        circle_marker_e9bc502533d5b04bd7c0e1fed778a04f.bindPopup(popup_9c2f5635a66069ad9e5ef0a5aae83998)
+        ;
+
+        
+    
+    
+            var circle_marker_713d414a153590b58b40ad28e4cd299c = L.circleMarker(
+                [28.5500047, 77.2431058],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_da0863d8cc4a55e5e27b7d81b6de176b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_7ae728466ae3e325416852d07b207cb9 = $(`<div id="html_7ae728466ae3e325416852d07b207cb9" style="width: 100.0%; height: 100.0%;"><b>GK1 (Oberoi Terrace)</b><br>Cluster: 0<br>PM2.5: 4.1<br>Pollution Index: 0.000</div>`)[0];
+                popup_da0863d8cc4a55e5e27b7d81b6de176b.setContent(html_7ae728466ae3e325416852d07b207cb9);
+            
+        
+
+        circle_marker_713d414a153590b58b40ad28e4cd299c.bindPopup(popup_da0863d8cc4a55e5e27b7d81b6de176b)
+        ;
+
+        
+    
+    
+            var circle_marker_58e8d60afedd07778a32acb3cc0a9209 = L.circleMarker(
+                [28.5266, 77.1493],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_3e68af2115ee182e481f4d2b7fa0a630 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_336eef189f17b338cda23d31ea775e14 = $(`<div id="html_336eef189f17b338cda23d31ea775e14" style="width: 100.0%; height: 100.0%;"><b>Santushti Apartments, Vasant Kunj</b><br>Cluster: 0<br>PM2.5: 36.6<br>Pollution Index: 0.393</div>`)[0];
+                popup_3e68af2115ee182e481f4d2b7fa0a630.setContent(html_336eef189f17b338cda23d31ea775e14);
+            
+        
+
+        circle_marker_58e8d60afedd07778a32acb3cc0a9209.bindPopup(popup_3e68af2115ee182e481f4d2b7fa0a630)
+        ;
+
+        
+    
+    
+            var circle_marker_533f9aadf2cc74a80b3299314a4d5840 = L.circleMarker(
+                [28.623056, 77.234167],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_4f3adbb0403a09c78d436791b0760032 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_6fa5c0b5c2736a26f1902830ea3779a2 = $(`<div id="html_6fa5c0b5c2736a26f1902830ea3779a2" style="width: 100.0%; height: 100.0%;"><b>Air Check</b><br>Cluster: 0<br>PM2.5: 46.8<br>Pollution Index: 0.516</div>`)[0];
+                popup_4f3adbb0403a09c78d436791b0760032.setContent(html_6fa5c0b5c2736a26f1902830ea3779a2);
+            
+        
+
+        circle_marker_533f9aadf2cc74a80b3299314a4d5840.bindPopup(popup_4f3adbb0403a09c78d436791b0760032)
+        ;
+
+        
+    
+    
+            var circle_marker_12f93a5b3170fa7c4363a77aa7123d2e = L.circleMarker(
+                [28.583491, 77.431714],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_291c41efc6458a71a46fdcf45787174f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4d507c00624a4498ad39036fcc6e4edf = $(`<div id="html_4d507c00624a4498ad39036fcc6e4edf" style="width: 100.0%; height: 100.0%;"><b>Sector 1, Noida extension</b><br>Cluster: -1<br>PM2.5: 49.8<br>Pollution Index: 0.551</div>`)[0];
+                popup_291c41efc6458a71a46fdcf45787174f.setContent(html_4d507c00624a4498ad39036fcc6e4edf);
+            
+        
+
+        circle_marker_12f93a5b3170fa7c4363a77aa7123d2e.bindPopup(popup_291c41efc6458a71a46fdcf45787174f)
+        ;
+
+        
+    
+    
+            var circle_marker_f40196c7b14687c8e73303fcf55b2734 = L.circleMarker(
+                [28.40240847053802, 77.08477464826682],
+                {"bubblingMouseEvents": true, "color": "indigo", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "indigo", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_2912bc3b8849f4d4923885a163a838f5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_fec04abf84e79e84622c70eba2020b34 = $(`<div id="html_fec04abf84e79e84622c70eba2020b34" style="width: 100.0%; height: 100.0%;"><b>Uptitude Cloud Pvt Ltd - Sector 62, GGN</b><br>Cluster: 8<br>PM2.5: 41.5<br>Pollution Index: 0.452</div>`)[0];
+                popup_2912bc3b8849f4d4923885a163a838f5.setContent(html_fec04abf84e79e84622c70eba2020b34);
+            
+        
+
+        circle_marker_f40196c7b14687c8e73303fcf55b2734.bindPopup(popup_2912bc3b8849f4d4923885a163a838f5)
+        ;
+
+        
+    
+    
+            var circle_marker_3f56d92ce43fbcf52258267a89360a4e = L.circleMarker(
+                [28.5587, 77.21886],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_4d73e18f448fa61c151f6e44a0a8e1c8 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b78ef7ef0e042024e345b5c60b166691 = $(`<div id="html_b78ef7ef0e042024e345b5c60b166691" style="width: 100.0%; height: 100.0%;"><b>Anand Lok</b><br>Cluster: 0<br>PM2.5: 34.2<br>Pollution Index: 0.363</div>`)[0];
+                popup_4d73e18f448fa61c151f6e44a0a8e1c8.setContent(html_b78ef7ef0e042024e345b5c60b166691);
+            
+        
+
+        circle_marker_3f56d92ce43fbcf52258267a89360a4e.bindPopup(popup_4d73e18f448fa61c151f6e44a0a8e1c8)
+        ;
+
+        
+    
+    
+            var circle_marker_7b3ba52876a9cb0cf83a0dd18347524f = L.circleMarker(
+                [28.54246, 77.191651],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_69344f5897df3a883315508fc9d30742 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1490aa16c1dfe2e02a935eb5b9d5f740 = $(`<div id="html_1490aa16c1dfe2e02a935eb5b9d5f740" style="width: 100.0%; height: 100.0%;"><b>IIT Delhi, Delhi - IITM</b><br>Cluster: 0<br>PM2.5: 31.5<br>Pollution Index: 0.285</div>`)[0];
+                popup_69344f5897df3a883315508fc9d30742.setContent(html_1490aa16c1dfe2e02a935eb5b9d5f740);
+            
+        
+
+        circle_marker_7b3ba52876a9cb0cf83a0dd18347524f.bindPopup(popup_69344f5897df3a883315508fc9d30742)
+        ;
+
+        
+    
+    
+            var circle_marker_a90f8aceee814c18d93a192730764696 = L.circleMarker(
+                [28.62181, 77.1944633],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_62af34df97ea54595553634745771d8c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a7cf4539ce9027ee43c9cfb6209d15a9 = $(`<div id="html_a7cf4539ce9027ee43c9cfb6209d15a9" style="width: 100.0%; height: 100.0%;"><b>Talkatora Garden, Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 33.6<br>Pollution Index: 0.178</div>`)[0];
+                popup_62af34df97ea54595553634745771d8c.setContent(html_a7cf4539ce9027ee43c9cfb6209d15a9);
+            
+        
+
+        circle_marker_a90f8aceee814c18d93a192730764696.bindPopup(popup_62af34df97ea54595553634745771d8c)
+        ;
+
+        
+    
+    
+            var circle_marker_3e0ae5c9d1de7dbd64156deee4590e1c = L.circleMarker(
+                [28.540721, 77.168544],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_8dee31bcd699b624a2148d0d691d619a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5c64ca889eadb8f768e62c9af193c558 = $(`<div id="html_5c64ca889eadb8f768e62c9af193c558" style="width: 100.0%; height: 100.0%;"><b>JNU, Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 31.6<br>Pollution Index: 0.162</div>`)[0];
+                popup_8dee31bcd699b624a2148d0d691d619a.setContent(html_5c64ca889eadb8f768e62c9af193c558);
+            
+        
+
+        circle_marker_3e0ae5c9d1de7dbd64156deee4590e1c.bindPopup(popup_8dee31bcd699b624a2148d0d691d619a)
+        ;
+
+        
+    
+    
+            var circle_marker_f35c9b3624a7734dae9e2db2b2f41847 = L.circleMarker(
+                [28.594004, 76.909423],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_2fc427ac696e3714f246d7ad40459e17 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_65ec56f379a083d3d08edd5ae4826d8f = $(`<div id="html_65ec56f379a083d3d08edd5ae4826d8f" style="width: 100.0%; height: 100.0%;"><b>NSUT Jaffarpur, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 34.4<br>Pollution Index: 0.206</div>`)[0];
+                popup_2fc427ac696e3714f246d7ad40459e17.setContent(html_65ec56f379a083d3d08edd5ae4826d8f);
+            
+        
+
+        circle_marker_f35c9b3624a7734dae9e2db2b2f41847.bindPopup(popup_2fc427ac696e3714f246d7ad40459e17)
+        ;
+
+        
+    
+    
+            var circle_marker_46a0a9c711123e364402568c7bf9371a = L.circleMarker(
+                [28.615828, 77.271992],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_f1eb268504f9e601ea2addc1cf04fc86 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9e7346e003015719c0d3d2696fbf29c0 = $(`<div id="html_9e7346e003015719c0d3d2696fbf29c0" style="width: 100.0%; height: 100.0%;"><b>Commonwealth Sports Complex, Delhi - DPCC</b><br>Cluster: 5<br>PM2.5: 37.3<br>Pollution Index: 0.270</div>`)[0];
+                popup_f1eb268504f9e601ea2addc1cf04fc86.setContent(html_9e7346e003015719c0d3d2696fbf29c0);
+            
+        
+
+        circle_marker_46a0a9c711123e364402568c7bf9371a.bindPopup(popup_f1eb268504f9e601ea2addc1cf04fc86)
+        ;
+
+        
+    
+    
+            var circle_marker_158064ac901c223bbd8908765bb5967a = L.circleMarker(
+                [28.493624, 77.201159],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_b84159f011e70fcaecf607c34a6f0565 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_fa71bb6ccc9b9b5eef83e89d10ac8a0a = $(`<div id="html_fa71bb6ccc9b9b5eef83e89d10ac8a0a" style="width: 100.0%; height: 100.0%;"><b>IGNOU_Maidan Garhi, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 12.3<br>Pollution Index: 0.116</div>`)[0];
+                popup_b84159f011e70fcaecf607c34a6f0565.setContent(html_fa71bb6ccc9b9b5eef83e89d10ac8a0a);
+            
+        
+
+        circle_marker_158064ac901c223bbd8908765bb5967a.bindPopup(popup_b84159f011e70fcaecf607c34a6f0565)
+        ;
+
+        
+    
+    
+            var circle_marker_8df5d7d9e51841fd338c358bae950977 = L.circleMarker(
+                [28.594169, 77.1251],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_58181c1d5a6a85ee59a09ea980e5fd14 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8f36a0d7bebc771ceb3069b06f54de6c = $(`<div id="html_8f36a0d7bebc771ceb3069b06f54de6c" style="width: 100.0%; height: 100.0%;"><b>Cantonment Area, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 12.9<br>Pollution Index: 0.133</div>`)[0];
+                popup_58181c1d5a6a85ee59a09ea980e5fd14.setContent(html_8f36a0d7bebc771ceb3069b06f54de6c);
+            
+        
+
+        circle_marker_8df5d7d9e51841fd338c358bae950977.bindPopup(popup_58181c1d5a6a85ee59a09ea980e5fd14)
+        ;
+
+        
+    
+    
+            var circle_marker_4c1b63c0d51fc94eb8e00d654c0d12b3 = L.circleMarker(
+                [28.61119, 77.34206],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkred", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_a19a92665e61246321b42a8ffae096a8 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_dc50e8ad801c7327f2f81a150601c048 = $(`<div id="html_dc50e8ad801c7327f2f81a150601c048" style="width: 100.0%; height: 100.0%;"><b>Prashant Garden, Khora - UPPCB</b><br>Cluster: 3<br>PM2.5: 58.6<br>Pollution Index: 0.259</div>`)[0];
+                popup_a19a92665e61246321b42a8ffae096a8.setContent(html_dc50e8ad801c7327f2f81a150601c048);
+            
+        
+
+        circle_marker_4c1b63c0d51fc94eb8e00d654c0d12b3.bindPopup(popup_a19a92665e61246321b42a8ffae096a8)
+        ;
+
+        
+    
+    
+            var circle_marker_81ceedca5aee185b1b679cef829c1309 = L.circleMarker(
+                [28.739153, 77.273668],
+                {"bubblingMouseEvents": true, "color": "cadetblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "cadetblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_99604e83fc87df48eda4f4798a4bd8b4 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c48a8c7f6eb2b8ca1e97b7b6d09af4bb = $(`<div id="html_c48a8c7f6eb2b8ca1e97b7b6d09af4bb" style="width: 100.0%; height: 100.0%;"><b>Ved Vihar-Loni, Ghaziabad - UPPCB</b><br>Cluster: 6<br>PM2.5: 40.7<br>Pollution Index: 0.365</div>`)[0];
+                popup_99604e83fc87df48eda4f4798a4bd8b4.setContent(html_c48a8c7f6eb2b8ca1e97b7b6d09af4bb);
+            
+        
+
+        circle_marker_81ceedca5aee185b1b679cef829c1309.bindPopup(popup_99604e83fc87df48eda4f4798a4bd8b4)
+        ;
+
+        
+    
+    
+            var circle_marker_535eb95eb03fb5b23b894777da868dcf = L.circleMarker(
+                [28.694528, 77.494705],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+        var popup_5e6267262bc7d5b595aeffbb4d202af6 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e246779434448966548ab64f35976ab4 = $(`<div id="html_e246779434448966548ab64f35976ab4" style="width: 100.0%; height: 100.0%;"><b>Govindpuram, Ghaziabad - UPPCB</b><br>Cluster: -1<br>PM2.5: 23.0<br>Pollution Index: 0.148</div>`)[0];
+                popup_5e6267262bc7d5b595aeffbb4d202af6.setContent(html_e246779434448966548ab64f35976ab4);
+            
+        
+
+        circle_marker_535eb95eb03fb5b23b894777da868dcf.bindPopup(popup_5e6267262bc7d5b595aeffbb4d202af6)
+        ;
+
+        
+    
+    
+            var circle_62df935a6a6a15f5349bc901144d4ccf = L.circle(
+                [28.41255423526901, 77.0757373241334],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": "5,5", "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3000, "stroke": true, "weight": 2}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+            var circle_f4daf3ae8f542ebefce41c70b0eaaf2a = L.circle(
+                [28.697587, 77.173559],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": "5,5", "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3000, "stroke": true, "weight": 2}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+            var circle_fec58608aa8ad90d469d0b2ea8c6200f = L.circle(
+                [28.666783533333334, 77.3112718],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": "5,5", "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3000, "stroke": true, "weight": 2}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+            var circle_a9a123289a47ec1e3dc65fe639c9cafc = L.circle(
+                [28.7482235, 77.27623],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": "5,5", "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3000, "stroke": true, "weight": 2}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+            var circle_baef1bfbb23880921a17d032fadb6958 = L.circle(
+                [28.4250905, 77.147722],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": "5,5", "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3000, "stroke": true, "weight": 2}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+            var circle_625bd7e3e28454d82b9ee6195766c754 = L.circle(
+                [28.635576375, 77.35377542500001],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": "5,5", "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3000, "stroke": true, "weight": 2}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+            var circle_599b86a12289f8a65445c8448e354f91 = L.circle(
+                [28.74128895, 77.11559075],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": "5,5", "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3000, "stroke": true, "weight": 2}
+            ).addTo(feature_group_ae944c92ce7e1f105f6e463510b4801a);
+        
+    
+            feature_group_ae944c92ce7e1f105f6e463510b4801a.addTo(map_c085c6c496143b80b5f422f2c8cccd61);
+        
+    
+            var feature_group_cd595a9880204be5810838cb5d7f5375 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_b9b0b276d9b0fcaf6502bbfd05288135 = L.circleMarker(
+                [28.563262, 77.186937],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_6a6cbf93731a44ace0c4b90043c375dc = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_fc9d039bc3ceaeb6ea59af0e816ecb2e = $(`<div id="html_fc9d039bc3ceaeb6ea59af0e816ecb2e" style="width: 100.0%; height: 100.0%;"><b>R K Puram, Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 44.7<br>Pollution Index: 0.333</div>`)[0];
+                popup_6a6cbf93731a44ace0c4b90043c375dc.setContent(html_fc9d039bc3ceaeb6ea59af0e816ecb2e);
+            
+        
+
+        circle_marker_b9b0b276d9b0fcaf6502bbfd05288135.bindPopup(popup_6a6cbf93731a44ace0c4b90043c375dc)
+        ;
+
+        
+    
+    
+            var circle_marker_63bcdd3f7a5fded6867ee89da600117d = L.circleMarker(
+                [28.674045, 77.131023],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_c0aeeb776483b9a63758b960b8dc31fd = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b87b395de9549d943c76192cf484e09b = $(`<div id="html_b87b395de9549d943c76192cf484e09b" style="width: 100.0%; height: 100.0%;"><b>Punjabi Bagh, Delhi - DPCC</b><br>Cluster: 1<br>PM2.5: 37.8<br>Pollution Index: 0.414</div>`)[0];
+                popup_c0aeeb776483b9a63758b960b8dc31fd.setContent(html_b87b395de9549d943c76192cf484e09b);
+            
+        
+
+        circle_marker_63bcdd3f7a5fded6867ee89da600117d.bindPopup(popup_c0aeeb776483b9a63758b960b8dc31fd)
+        ;
+
+        
+    
+    
+            var circle_marker_62c669ec746c98fb7d36241cad091d19 = L.circleMarker(
+                [28.646835, 77.316032],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_652ebd2a8de85ce284aa9a1d88ea1f20 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a8a0efa4e91e2e0a577a572dd44873cf = $(`<div id="html_a8a0efa4e91e2e0a577a572dd44873cf" style="width: 100.0%; height: 100.0%;"><b>Anand Vihar, New Delhi - DPCC</b><br>Cluster: 2<br>PM2.5: 87.0<br>Pollution Index: 0.622</div>`)[0];
+                popup_652ebd2a8de85ce284aa9a1d88ea1f20.setContent(html_a8a0efa4e91e2e0a577a572dd44873cf);
+            
+        
+
+        circle_marker_62c669ec746c98fb7d36241cad091d19.bindPopup(popup_652ebd2a8de85ce284aa9a1d88ea1f20)
+        ;
+
+        
+    
+    
+            var circle_marker_99b7b16c9f8439a29d224dc4f6602556 = L.circleMarker(
+                [28.4501238, 77.0263051],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_8cc35810809e268ba74fcd84c2348b76 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_09fade550205344704ba9816b2d96da9 = $(`<div id="html_09fade550205344704ba9816b2d96da9" style="width: 100.0%; height: 100.0%;"><b>Vikas Sadan, Gurugram - HSPCB</b><br>Cluster: -1<br>PM2.5: 55.1<br>Pollution Index: 0.265</div>`)[0];
+                popup_8cc35810809e268ba74fcd84c2348b76.setContent(html_09fade550205344704ba9816b2d96da9);
+            
+        
+
+        circle_marker_99b7b16c9f8439a29d224dc4f6602556.bindPopup(popup_8cc35810809e268ba74fcd84c2348b76)
+        ;
+
+        
+    
+    
+            var circle_marker_64b3c7cb7e29a16bf5512878785c8768 = L.circleMarker(
+                [28.639645, 77.146263],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_df1ac1807eb677f7287868be8b3d6f81 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_738e3cef0d204f90f1b9007419d8357d = $(`<div id="html_738e3cef0d204f90f1b9007419d8357d" style="width: 100.0%; height: 100.0%;"><b>Pusa, Delhi - IMD</b><br>Cluster: 1<br>PM2.5: 28.8<br>Pollution Index: 0.330</div>`)[0];
+                popup_df1ac1807eb677f7287868be8b3d6f81.setContent(html_738e3cef0d204f90f1b9007419d8357d);
+            
+        
+
+        circle_marker_64b3c7cb7e29a16bf5512878785c8768.bindPopup(popup_df1ac1807eb677f7287868be8b3d6f81)
+        ;
+
+        
+    
+    
+            var circle_marker_9b7f05c7e0a051ff83984b51fc54427a = L.circleMarker(
+                [28.7256504, 77.2011573],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_0b74b79987f7b69d140a0a3f32da03ca = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_803798124fdbd06dc417760a73e1510c = $(`<div id="html_803798124fdbd06dc417760a73e1510c" style="width: 100.0%; height: 100.0%;"><b>Burari Crossing, New Delhi - IMD</b><br>Cluster: -1<br>PM2.5: 33.1<br>Pollution Index: 0.299</div>`)[0];
+                popup_0b74b79987f7b69d140a0a3f32da03ca.setContent(html_803798124fdbd06dc417760a73e1510c);
+            
+        
+
+        circle_marker_9b7f05c7e0a051ff83984b51fc54427a.bindPopup(popup_0b74b79987f7b69d140a0a3f32da03ca)
+        ;
+
+        
+    
+    
+            var circle_marker_d5ce0d5955d737e4a0d0adbf6a8a9edb = L.circleMarker(
+                [28.474261, 77.131606],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_a648e595b05bb5da62b9cca65dbe1887 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_16daee0de02416fa9882c7319481b337 = $(`<div id="html_16daee0de02416fa9882c7319481b337" style="width: 100.0%; height: 100.0%;"><b>Aya Nagar, New Delhi - IMD</b><br>Cluster: -1<br>PM2.5: 28.7<br>Pollution Index: 0.218</div>`)[0];
+                popup_a648e595b05bb5da62b9cca65dbe1887.setContent(html_16daee0de02416fa9882c7319481b337);
+            
+        
+
+        circle_marker_d5ce0d5955d737e4a0d0adbf6a8a9edb.bindPopup(popup_a648e595b05bb5da62b9cca65dbe1887)
+        ;
+
+        
+    
+    
+            var circle_marker_224d1789fe6725790b4ae8b5f48b93ad = L.circleMarker(
+                [28.5504249, 77.2159377],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_e68dba10ed81f3e5e8b4ba380c611eee = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_78e1782ee296b5b67a3466d356282269 = $(`<div id="html_78e1782ee296b5b67a3466d356282269" style="width: 100.0%; height: 100.0%;"><b>Sirifort, Delhi - CPCB</b><br>Cluster: 0<br>PM2.5: 43.5<br>Pollution Index: 0.354</div>`)[0];
+                popup_e68dba10ed81f3e5e8b4ba380c611eee.setContent(html_78e1782ee296b5b67a3466d356282269);
+            
+        
+
+        circle_marker_224d1789fe6725790b4ae8b5f48b93ad.bindPopup(popup_e68dba10ed81f3e5e8b4ba380c611eee)
+        ;
+
+        
+    
+    
+            var circle_marker_03d0aa8df71d55c5682a8f97754449e8 = L.circleMarker(
+                [28.5447608, 77.3231257],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_69c849b6bcba5918e6758922c4a9d2ce = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_065546d650cb3d80cf96be14d97018ce = $(`<div id="html_065546d650cb3d80cf96be14d97018ce" style="width: 100.0%; height: 100.0%;"><b>Sector - 125, Noida, UP - UPPCB</b><br>Cluster: -1<br>PM2.5: 34.5<br>Pollution Index: 0.280</div>`)[0];
+                popup_69c849b6bcba5918e6758922c4a9d2ce.setContent(html_065546d650cb3d80cf96be14d97018ce);
+            
+        
+
+        circle_marker_03d0aa8df71d55c5682a8f97754449e8.bindPopup(popup_69c849b6bcba5918e6758922c4a9d2ce)
+        ;
+
+        
+    
+    
+            var circle_marker_63f47355c0944e118f260d528defb5a2 = L.circleMarker(
+                [28.6573814, 77.1585447],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_4301d35be9175cd9c29b422bdf8fbb9f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_95374e505b1554e42b7a436453127b6e = $(`<div id="html_95374e505b1554e42b7a436453127b6e" style="width: 100.0%; height: 100.0%;"><b>North Campus, DU, Delhi - IMD</b><br>Cluster: 1<br>PM2.5: 37.1<br>Pollution Index: 0.555</div>`)[0];
+                popup_4301d35be9175cd9c29b422bdf8fbb9f.setContent(html_95374e505b1554e42b7a436453127b6e);
+            
+        
+
+        circle_marker_63f47355c0944e118f260d528defb5a2.bindPopup(popup_4301d35be9175cd9c29b422bdf8fbb9f)
+        ;
+
+        
+    
+    
+            var circle_marker_9ef49241166e02cfad2e7ba0f7891a57 = L.circleMarker(
+                [28.628624, 77.24106],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_1d1adad61b21fbbb6e83543855a29208 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f6e3b26c0dcb300e2dade08b82ea41e2 = $(`<div id="html_f6e3b26c0dcb300e2dade08b82ea41e2" style="width: 100.0%; height: 100.0%;"><b>ITO, New Delhi - CPCB</b><br>Cluster: 0<br>PM2.5: 34.9<br>Pollution Index: 0.419</div>`)[0];
+                popup_1d1adad61b21fbbb6e83543855a29208.setContent(html_f6e3b26c0dcb300e2dade08b82ea41e2);
+            
+        
+
+        circle_marker_9ef49241166e02cfad2e7ba0f7891a57.bindPopup(popup_1d1adad61b21fbbb6e83543855a29208)
+        ;
+
+        
+    
+    
+            var circle_marker_d2f038f92cc8d0b0cc701a84c4f14b73 = L.circleMarker(
+                [28.6245479, 77.3577104],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_c992e7dd8a38db8eee4aef7cb36dba69 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_6caa58f23d5dbded5b4515638f661639 = $(`<div id="html_6caa58f23d5dbded5b4515638f661639" style="width: 100.0%; height: 100.0%;"><b>Sector - 62, Noida, UP - IMD</b><br>Cluster: 3<br>PM2.5: 38.0<br>Pollution Index: 0.292</div>`)[0];
+                popup_c992e7dd8a38db8eee4aef7cb36dba69.setContent(html_6caa58f23d5dbded5b4515638f661639);
+            
+        
+
+        circle_marker_d2f038f92cc8d0b0cc701a84c4f14b73.bindPopup(popup_c992e7dd8a38db8eee4aef7cb36dba69)
+        ;
+
+        
+    
+    
+            var circle_marker_426201e39cbfe496eb0c302481ec6ef5 = L.circleMarker(
+                [28.60909, 77.0325413],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_7e9216c76d9dff7750684cc7c55e9ed1 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_6697feb874ccb96c18a15dba31a333d4 = $(`<div id="html_6697feb874ccb96c18a15dba31a333d4" style="width: 100.0%; height: 100.0%;"><b>NSIT Dwarka, Delhi - CPCB</b><br>Cluster: -1<br>PM2.5: 18.4<br>Pollution Index: 0.337</div>`)[0];
+                popup_7e9216c76d9dff7750684cc7c55e9ed1.setContent(html_6697feb874ccb96c18a15dba31a333d4);
+            
+        
+
+        circle_marker_426201e39cbfe496eb0c302481ec6ef5.bindPopup(popup_7e9216c76d9dff7750684cc7c55e9ed1)
+        ;
+
+        
+    
+    
+            var circle_marker_16f40df3e58b1bb7795551d0edf88979 = L.circleMarker(
+                [28.7500499, 77.1112615],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_8bebfae2482e7aaadc35a51dc98af035 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8393eb8328b4483a35ebe3b1984872ec = $(`<div id="html_8393eb8328b4483a35ebe3b1984872ec" style="width: 100.0%; height: 100.0%;"><b>DTU, New Delhi - CPCB</b><br>Cluster: 4<br>PM2.5: 35.4<br>Pollution Index: 0.292</div>`)[0];
+                popup_8bebfae2482e7aaadc35a51dc98af035.setContent(html_8393eb8328b4483a35ebe3b1984872ec);
+            
+        
+
+        circle_marker_16f40df3e58b1bb7795551d0edf88979.bindPopup(popup_8bebfae2482e7aaadc35a51dc98af035)
+        ;
+
+        
+    
+    
+            var circle_marker_c7dc2665e1a540238d2f5135b13c9b9e = L.circleMarker(
+                [28.5512005, 77.2735737],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_d0bbcc0c08580f8c10b5269874bbab81 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0e357b3ed9cb3adb2a07a33f654204a8 = $(`<div id="html_0e357b3ed9cb3adb2a07a33f654204a8" style="width: 100.0%; height: 100.0%;"><b>CRRI Mathura Road, New Delhi - IMD</b><br>Cluster: 0<br>PM2.5: 33.3<br>Pollution Index: 0.284</div>`)[0];
+                popup_d0bbcc0c08580f8c10b5269874bbab81.setContent(html_0e357b3ed9cb3adb2a07a33f654204a8);
+            
+        
+
+        circle_marker_c7dc2665e1a540238d2f5135b13c9b9e.bindPopup(popup_d0bbcc0c08580f8c10b5269874bbab81)
+        ;
+
+        
+    
+    
+            var circle_marker_e1ed3345ddf06439667882c1de537991 = L.circleMarker(
+                [28.6514781, 77.1473105],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_b58f27762ccd5029f3b7f91124c47691 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_00789753cb36caec719096bcf7d9654e = $(`<div id="html_00789753cb36caec719096bcf7d9654e" style="width: 100.0%; height: 100.0%;"><b>Shadipur, Delhi - CPCB</b><br>Cluster: 1<br>PM2.5: 23.9<br>Pollution Index: 0.258</div>`)[0];
+                popup_b58f27762ccd5029f3b7f91124c47691.setContent(html_00789753cb36caec719096bcf7d9654e);
+            
+        
+
+        circle_marker_e1ed3345ddf06439667882c1de537991.bindPopup(popup_b58f27762ccd5029f3b7f91124c47691)
+        ;
+
+        
+    
+    
+            var circle_marker_c1888f9d65a65f1a85709e26a1a9669d = L.circleMarker(
+                [28.5918245, 77.2273074],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_ac7ee73cd3e02324685ee8edc99440ea = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_186667461fcd25d57b263d143aba7595 = $(`<div id="html_186667461fcd25d57b263d143aba7595" style="width: 100.0%; height: 100.0%;"><b>Lodhi Road, New Delhi - IMD</b><br>Cluster: 0<br>PM2.5: 30.7<br>Pollution Index: 0.222</div>`)[0];
+                popup_ac7ee73cd3e02324685ee8edc99440ea.setContent(html_186667461fcd25d57b263d143aba7595);
+            
+        
+
+        circle_marker_c1888f9d65a65f1a85709e26a1a9669d.bindPopup(popup_ac7ee73cd3e02324685ee8edc99440ea)
+        ;
+
+        
+    
+    
+            var circle_marker_ecb6e6a7dfc497573d83b03998b1bc79 = L.circleMarker(
+                [28.5627763, 77.1180053],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_9eb75675aa67d8d8571fb960ea7d8cf3 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_53c40f680ec8633a2cd384d7fcafca19 = $(`<div id="html_53c40f680ec8633a2cd384d7fcafca19" style="width: 100.0%; height: 100.0%;"><b>IGI Airport (T3), Delhi - IMD</b><br>Cluster: -1<br>PM2.5: 25.7<br>Pollution Index: 0.425</div>`)[0];
+                popup_9eb75675aa67d8d8571fb960ea7d8cf3.setContent(html_53c40f680ec8633a2cd384d7fcafca19);
+            
+        
+
+        circle_marker_ecb6e6a7dfc497573d83b03998b1bc79.bindPopup(popup_9eb75675aa67d8d8571fb960ea7d8cf3)
+        ;
+
+        
+    
+    
+            var circle_marker_5b94cd49f3cc296fde53255529388c8c = L.circleMarker(
+                [28.6603346, 77.3572563],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_178d2f4019a73593d486002c728cc580 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_23d881860a0d04476355cbf720af7d2b = $(`<div id="html_23d881860a0d04476355cbf720af7d2b" style="width: 100.0%; height: 100.0%;"><b>Vasundhara, Ghaziabad - UPPCB</b><br>Cluster: 3<br>PM2.5: 40.7<br>Pollution Index: 0.352</div>`)[0];
+                popup_178d2f4019a73593d486002c728cc580.setContent(html_23d881860a0d04476355cbf720af7d2b);
+            
+        
+
+        circle_marker_5b94cd49f3cc296fde53255529388c8c.bindPopup(popup_178d2f4019a73593d486002c728cc580)
+        ;
+
+        
+    
+    
+            var circle_marker_aa2e5ff3b48c6c484d1a5ecb7f2456c8 = L.circleMarker(
+                [28.639645, 77.146262],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_fb505636869fc22a5b80432e0e260cc4 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_aabbb2183c00635e90f8095b20ffc5d8 = $(`<div id="html_aabbb2183c00635e90f8095b20ffc5d8" style="width: 100.0%; height: 100.0%;"><b>Pusa, Delhi - DPCC</b><br>Cluster: 1<br>PM2.5: 30.2<br>Pollution Index: 0.264</div>`)[0];
+                popup_fb505636869fc22a5b80432e0e260cc4.setContent(html_aabbb2183c00635e90f8095b20ffc5d8);
+            
+        
+
+        circle_marker_aa2e5ff3b48c6c484d1a5ecb7f2456c8.bindPopup(popup_fb505636869fc22a5b80432e0e260cc4)
+        ;
+
+        
+    
+    
+            var circle_marker_8b64b9984ae70471884e85ce9b53bc1f = L.circleMarker(
+                [28.636429, 77.201067],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_ea9840b6413a5be71da793755b255d74 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1b32e09d9fb336ff6ce1538b96a2fe07 = $(`<div id="html_1b32e09d9fb336ff6ce1538b96a2fe07" style="width: 100.0%; height: 100.0%;"><b>Mandir Marg, New Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 34.1<br>Pollution Index: 0.301</div>`)[0];
+                popup_ea9840b6413a5be71da793755b255d74.setContent(html_1b32e09d9fb336ff6ce1538b96a2fe07);
+            
+        
+
+        circle_marker_8b64b9984ae70471884e85ce9b53bc1f.bindPopup(popup_ea9840b6413a5be71da793755b255d74)
+        ;
+
+        
+    
+    
+            var circle_marker_1234afc9d672f183003d2ff1ddc8b776 = L.circleMarker(
+                [28.6811736, 77.3025234],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_812f6167217aac6b6d9ca039b04c3b6a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9f91a010547b5a65a433de4111c260ca = $(`<div id="html_9f91a010547b5a65a433de4111c260ca" style="width: 100.0%; height: 100.0%;"><b>IHBAS, Dilshad Garden,New Delhi - CPCB</b><br>Cluster: 2<br>PM2.5: 32.5<br>Pollution Index: 0.261</div>`)[0];
+                popup_812f6167217aac6b6d9ca039b04c3b6a.setContent(html_9f91a010547b5a65a433de4111c260ca);
+            
+        
+
+        circle_marker_1234afc9d672f183003d2ff1ddc8b776.bindPopup(popup_812f6167217aac6b6d9ca039b04c3b6a)
+        ;
+
+        
+    
+    
+            var circle_marker_9cdb361eea5a4d2acff610b5f16ef611 = L.circleMarker(
+                [28.646233, 77.358075],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_d883ae22f86eadb8391df3a10beae1bf = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_029f4488dc71f2118424c4dd34068126 = $(`<div id="html_029f4488dc71f2118424c4dd34068126" style="width: 100.0%; height: 100.0%;"><b>Indirapuram, Ghaziabad - UPPCB</b><br>Cluster: 3<br>PM2.5: 34.2<br>Pollution Index: 0.270</div>`)[0];
+                popup_d883ae22f86eadb8391df3a10beae1bf.setContent(html_029f4488dc71f2118424c4dd34068126);
+            
+        
+
+        circle_marker_9cdb361eea5a4d2acff610b5f16ef611.bindPopup(popup_d883ae22f86eadb8391df3a10beae1bf)
+        ;
+
+        
+    
+    
+            var circle_marker_e300dbc190f61cae6d2efc448d4e3a48 = L.circleMarker(
+                [28.611281, 77.237738],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_8960dff923af1f6571e62216e22303a4 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5191f65e5c64a86313c68402480d3659 = $(`<div id="html_5191f65e5c64a86313c68402480d3659" style="width: 100.0%; height: 100.0%;"><b>Major Dhyan Chand National Stadium, Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 25.8<br>Pollution Index: 0.260</div>`)[0];
+                popup_8960dff923af1f6571e62216e22303a4.setContent(html_5191f65e5c64a86313c68402480d3659);
+            
+        
+
+        circle_marker_e300dbc190f61cae6d2efc448d4e3a48.bindPopup(popup_8960dff923af1f6571e62216e22303a4)
+        ;
+
+        
+    
+    
+            var circle_marker_83a503e7c9eb877d006b40cee4253878 = L.circleMarker(
+                [28.5710274, 77.0719006],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_dc0cfa445f5440ad5097bc74723db54f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_89e662d9becad6c21292cf7898ede971 = $(`<div id="html_89e662d9becad6c21292cf7898ede971" style="width: 100.0%; height: 100.0%;"><b>Dwarka-Sector 8, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 23.6<br>Pollution Index: 0.289</div>`)[0];
+                popup_dc0cfa445f5440ad5097bc74723db54f.setContent(html_89e662d9becad6c21292cf7898ede971);
+            
+        
+
+        circle_marker_83a503e7c9eb877d006b40cee4253878.bindPopup(popup_dc0cfa445f5440ad5097bc74723db54f)
+        ;
+
+        
+    
+    
+            var circle_marker_6b46651fc26a5f643992015ce92154fd = L.circleMarker(
+                [28.815329, 77.15301],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_d08571a76cffba9741745f90427330ef = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_32686ecbe8744ef0a3729f4f50127747 = $(`<div id="html_32686ecbe8744ef0a3729f4f50127747" style="width: 100.0%; height: 100.0%;"><b>Alipur, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 34.2<br>Pollution Index: 0.242</div>`)[0];
+                popup_d08571a76cffba9741745f90427330ef.setContent(html_32686ecbe8744ef0a3729f4f50127747);
+            
+        
+
+        circle_marker_6b46651fc26a5f643992015ce92154fd.bindPopup(popup_d08571a76cffba9741745f90427330ef)
+        ;
+
+        
+    
+    
+            var circle_marker_f557d931a64fc873b7924f545594103c = L.circleMarker(
+                [28.498571, 77.26484],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_8594e78c956e53d70603b6421a82f58b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_882199fffb66e710cc130ce92c2a8b29 = $(`<div id="html_882199fffb66e710cc130ce92c2a8b29" style="width: 100.0%; height: 100.0%;"><b>Dr. Karni Singh Shooting Range, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 29.6<br>Pollution Index: 0.198</div>`)[0];
+                popup_8594e78c956e53d70603b6421a82f58b.setContent(html_882199fffb66e710cc130ce92c2a8b29);
+            
+        
+
+        circle_marker_f557d931a64fc873b7924f545594103c.bindPopup(popup_8594e78c956e53d70603b6421a82f58b)
+        ;
+
+        
+    
+    
+            var circle_marker_c1fb859ff50784a32d5b7107a3910e26 = L.circleMarker(
+                [28.6701, 76.9254],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_c5b1d2d8b6be7a6fd54b091b3c5abc1e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c1179040002d2f06a12feec1b31ab96e = $(`<div id="html_c1179040002d2f06a12feec1b31ab96e" style="width: 100.0%; height: 100.0%;"><b>Arya Nagar, Bahadurgarh - HSPCB</b><br>Cluster: -1<br>PM2.5: 30.7<br>Pollution Index: 0.270</div>`)[0];
+                popup_c5b1d2d8b6be7a6fd54b091b3c5abc1e.setContent(html_c1179040002d2f06a12feec1b31ab96e);
+            
+        
+
+        circle_marker_c1fb859ff50784a32d5b7107a3910e26.bindPopup(popup_c5b1d2d8b6be7a6fd54b091b3c5abc1e)
+        ;
+
+        
+    
+    
+            var circle_marker_7d72cdd6e22566068f7d9688cd23ebc0 = L.circleMarker(
+                [28.672342, 77.31526],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_57c8db36e4d56a8630685a73bb1b711e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2a20438e29aa44a801b9ea544bbaca53 = $(`<div id="html_2a20438e29aa44a801b9ea544bbaca53" style="width: 100.0%; height: 100.0%;"><b>Vivek Vihar, Delhi - DPCC</b><br>Cluster: 2<br>PM2.5: 34.6<br>Pollution Index: 0.281</div>`)[0];
+                popup_57c8db36e4d56a8630685a73bb1b711e.setContent(html_2a20438e29aa44a801b9ea544bbaca53);
+            
+        
+
+        circle_marker_7d72cdd6e22566068f7d9688cd23ebc0.bindPopup(popup_57c8db36e4d56a8630685a73bb1b711e)
+        ;
+
+        
+    
+    
+            var circle_marker_609d015ff2811b3d67f555fe23757206 = L.circleMarker(
+                [28.58028, 77.233829],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_16c63954e90f93a98e8664453bde09bc = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_38f60ce0d9692e515aaa7a631fbbfcd6 = $(`<div id="html_38f60ce0d9692e515aaa7a631fbbfcd6" style="width: 100.0%; height: 100.0%;"><b>Jawaharlal Nehru Stadium, Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 39.8<br>Pollution Index: 0.306</div>`)[0];
+                popup_16c63954e90f93a98e8664453bde09bc.setContent(html_38f60ce0d9692e515aaa7a631fbbfcd6);
+            
+        
+
+        circle_marker_609d015ff2811b3d67f555fe23757206.bindPopup(popup_16c63954e90f93a98e8664453bde09bc)
+        ;
+
+        
+    
+    
+            var circle_marker_423576eaa7d5a62b3b3597137972c8a9 = L.circleMarker(
+                [28.623748, 77.287205],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_4ad4ae14d41c7512663267cc10f8617d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_fdf545bb013ec2178a73906478cf82c2 = $(`<div id="html_fdf545bb013ec2178a73906478cf82c2" style="width: 100.0%; height: 100.0%;"><b>Patparganj, Delhi - DPCC</b><br>Cluster: 5<br>PM2.5: 26.4<br>Pollution Index: 0.209</div>`)[0];
+                popup_4ad4ae14d41c7512663267cc10f8617d.setContent(html_fdf545bb013ec2178a73906478cf82c2);
+            
+        
+
+        circle_marker_423576eaa7d5a62b3b3597137972c8a9.bindPopup(popup_4ad4ae14d41c7512663267cc10f8617d)
+        ;
+
+        
+    
+    
+            var circle_marker_8872b45196c38b5c1bce377441a09955 = L.circleMarker(
+                [28.47272, 77.482],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_1abf3ddb454b9ae5568bf0847b44cf90 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a0cfecb4e714642a1ec270411992f499 = $(`<div id="html_a0cfecb4e714642a1ec270411992f499" style="width: 100.0%; height: 100.0%;"><b>Knowledge Park - III, Greater Noida - UPPCB</b><br>Cluster: -1<br>PM2.5: 31.4<br>Pollution Index: 0.286</div>`)[0];
+                popup_1abf3ddb454b9ae5568bf0847b44cf90.setContent(html_a0cfecb4e714642a1ec270411992f499);
+            
+        
+
+        circle_marker_8872b45196c38b5c1bce377441a09955.bindPopup(popup_1abf3ddb454b9ae5568bf0847b44cf90)
+        ;
+
+        
+    
+    
+            var circle_marker_99e3f5d3d709b69edf46334df8342dbe = L.circleMarker(
+                [28.589247, 77.321962],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_a50d995af86262e40ce35db7832f62d2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_11f3ad9588d54d0a553adefc28ea0bd1 = $(`<div id="html_11f3ad9588d54d0a553adefc28ea0bd1" style="width: 100.0%; height: 100.0%;"><b>Sector-1, Noida - UPPCB</b><br>Cluster: -1<br>PM2.5: 29.9<br>Pollution Index: 0.373</div>`)[0];
+                popup_a50d995af86262e40ce35db7832f62d2.setContent(html_11f3ad9588d54d0a553adefc28ea0bd1);
+            
+        
+
+        circle_marker_99e3f5d3d709b69edf46334df8342dbe.bindPopup(popup_a50d995af86262e40ce35db7832f62d2)
+        ;
+
+        
+    
+    
+            var circle_marker_3691df6adfa12a073c229c570beeaf64 = L.circleMarker(
+                [28.557054, 77.453663],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_c53be7449da454a48a7d66f8d3b267ff = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_27aea060965065d7c14957e9708c617a = $(`<div id="html_27aea060965065d7c14957e9708c617a" style="width: 100.0%; height: 100.0%;"><b>Knowledge Park - V, Greater Noida - UPPCB</b><br>Cluster: -1<br>PM2.5: 32.8<br>Pollution Index: 0.361</div>`)[0];
+                popup_c53be7449da454a48a7d66f8d3b267ff.setContent(html_27aea060965065d7c14957e9708c617a);
+            
+        
+
+        circle_marker_3691df6adfa12a073c229c570beeaf64.bindPopup(popup_c53be7449da454a48a7d66f8d3b267ff)
+        ;
+
+        
+    
+    
+            var circle_marker_c0b0694ce4733958531b0f45647b497c = L.circleMarker(
+                [28.56923, 77.393848],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_81954d48ff4d773ac4e03ac893f02eaf = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_7da0eda75d7e1173c635f9fd1b0da0cb = $(`<div id="html_7da0eda75d7e1173c635f9fd1b0da0cb" style="width: 100.0%; height: 100.0%;"><b>Sector-116, Noida - UPPCB</b><br>Cluster: -1<br>PM2.5: 50.7<br>Pollution Index: 0.444</div>`)[0];
+                popup_81954d48ff4d773ac4e03ac893f02eaf.setContent(html_7da0eda75d7e1173c635f9fd1b0da0cb);
+            
+        
+
+        circle_marker_c0b0694ce4733958531b0f45647b497c.bindPopup(popup_81954d48ff4d773ac4e03ac893f02eaf)
+        ;
+
+        
+    
+    
+            var circle_marker_92f9dbac0a5024c801c2048e3d663999 = L.circleMarker(
+                [28.757294, 77.278792],
+                {"bubblingMouseEvents": true, "color": "cadetblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "cadetblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_4e449c58c3f838743d1bfa531d18eda8 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8078785ea85b3fc5b781a1006b6cf627 = $(`<div id="html_8078785ea85b3fc5b781a1006b6cf627" style="width: 100.0%; height: 100.0%;"><b>Loni, Ghaziabad - UPPCB</b><br>Cluster: 6<br>PM2.5: 34.6<br>Pollution Index: 0.345</div>`)[0];
+                popup_4e449c58c3f838743d1bfa531d18eda8.setContent(html_8078785ea85b3fc5b781a1006b6cf627);
+            
+        
+
+        circle_marker_92f9dbac0a5024c801c2048e3d663999.bindPopup(popup_4e449c58c3f838743d1bfa531d18eda8)
+        ;
+
+        
+    
+    
+            var circle_marker_6c2b8176a5f0ab325867fe5c4656b594 = L.circleMarker(
+                [28.63576, 77.22445],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_f999137a715965fa30c9860f94bfcde5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_270eb006613947073a9aed9472619a46 = $(`<div id="html_270eb006613947073a9aed9472619a46" style="width: 100.0%; height: 100.0%;"><b>New Delhi</b><br>Cluster: 0<br>PM2.5: 34.0<br>Pollution Index: 0.361</div>`)[0];
+                popup_f999137a715965fa30c9860f94bfcde5.setContent(html_270eb006613947073a9aed9472619a46);
+            
+        
+
+        circle_marker_6c2b8176a5f0ab325867fe5c4656b594.bindPopup(popup_f999137a715965fa30c9860f94bfcde5)
+        ;
+
+        
+    
+    
+            var circle_marker_274712af2c22763e2d3e9242c94c9f84 = L.circleMarker(
+                [28.73282, 77.170633],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_218e810270c8877fc62d6efd3825a414 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_58bb67fd33afae3932667c526d9dea57 = $(`<div id="html_58bb67fd33afae3932667c526d9dea57" style="width: 100.0%; height: 100.0%;"><b>Jahangirpuri, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 46.9<br>Pollution Index: 0.366</div>`)[0];
+                popup_218e810270c8877fc62d6efd3825a414.setContent(html_58bb67fd33afae3932667c526d9dea57);
+            
+        
+
+        circle_marker_274712af2c22763e2d3e9242c94c9f84.bindPopup(popup_218e810270c8877fc62d6efd3825a414)
+        ;
+
+        
+    
+    
+            var circle_marker_c3e6d60a7650b9711b89b680fa8f3bd1 = L.circleMarker(
+                [28.530785, 77.271255],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_cc04526e3b4791bdcfcd91a2d4f1473c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b6b13c7e1e9f05d1da9588dc0991657f = $(`<div id="html_b6b13c7e1e9f05d1da9588dc0991657f" style="width: 100.0%; height: 100.0%;"><b>Okhla Phase-2, Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 32.5<br>Pollution Index: 0.237</div>`)[0];
+                popup_cc04526e3b4791bdcfcd91a2d4f1473c.setContent(html_b6b13c7e1e9f05d1da9588dc0991657f);
+            
+        
+
+        circle_marker_c3e6d60a7650b9711b89b680fa8f3bd1.bindPopup(popup_cc04526e3b4791bdcfcd91a2d4f1473c)
+        ;
+
+        
+    
+    
+            var circle_marker_71f9c08e5e64f55c967d93ad614132b6 = L.circleMarker(
+                [28.56789, 77.250515],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_a606fdf343b72d4ab47af5008e21612a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_dcda3dccdfbfe1cb984c3f3907c7ec03 = $(`<div id="html_dcda3dccdfbfe1cb984c3f3907c7ec03" style="width: 100.0%; height: 100.0%;"><b>Nehru Nagar, Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 36.3<br>Pollution Index: 0.288</div>`)[0];
+                popup_a606fdf343b72d4ab47af5008e21612a.setContent(html_dcda3dccdfbfe1cb984c3f3907c7ec03);
+            
+        
+
+        circle_marker_71f9c08e5e64f55c967d93ad614132b6.bindPopup(popup_a606fdf343b72d4ab47af5008e21612a)
+        ;
+
+        
+    
+    
+            var circle_marker_83b0453cc92ff6822830b444db7a11ca = L.circleMarker(
+                [28.7762, 77.051074],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_e2a7485418e69abc6f5ac6839d5dee4e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c98c83e43781b24533cf6cd9e0cb1c2e = $(`<div id="html_c98c83e43781b24533cf6cd9e0cb1c2e" style="width: 100.0%; height: 100.0%;"><b>Bawana, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 65.7<br>Pollution Index: 0.294</div>`)[0];
+                popup_e2a7485418e69abc6f5ac6839d5dee4e.setContent(html_c98c83e43781b24533cf6cd9e0cb1c2e);
+            
+        
+
+        circle_marker_83b0453cc92ff6822830b444db7a11ca.bindPopup(popup_e2a7485418e69abc6f5ac6839d5dee4e)
+        ;
+
+        
+    
+    
+            var circle_marker_5e3983f2e75c37282f51cdd51191276a = L.circleMarker(
+                [28.710508, 77.249485],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_5d708ec738e06b2db2468cbfd2a8f058 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f55f19d0f047acd7c7b22aa450dbd469 = $(`<div id="html_f55f19d0f047acd7c7b22aa450dbd469" style="width: 100.0%; height: 100.0%;"><b>Sonia Vihar, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 41.8<br>Pollution Index: 0.327</div>`)[0];
+                popup_5d708ec738e06b2db2468cbfd2a8f058.setContent(html_f55f19d0f047acd7c7b22aa450dbd469);
+            
+        
+
+        circle_marker_5e3983f2e75c37282f51cdd51191276a.bindPopup(popup_5d708ec738e06b2db2468cbfd2a8f058)
+        ;
+
+        
+    
+    
+            var circle_marker_523b41995235adfb80819c995fb01511 = L.circleMarker(
+                [28.699793, 77.165453],
+                {"bubblingMouseEvents": true, "color": "darkgreen", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkgreen", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_2cb9ec4cdb6e9116179868a247d5d893 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_cdbfaa00396d603da2f4aa3447c07815 = $(`<div id="html_cdbfaa00396d603da2f4aa3447c07815" style="width: 100.0%; height: 100.0%;"><b>Wazirpur, Delhi - DPCC</b><br>Cluster: 7<br>PM2.5: 58.8<br>Pollution Index: 0.451</div>`)[0];
+                popup_2cb9ec4cdb6e9116179868a247d5d893.setContent(html_cdbfaa00396d603da2f4aa3447c07815);
+            
+        
+
+        circle_marker_523b41995235adfb80819c995fb01511.bindPopup(popup_2cb9ec4cdb6e9116179868a247d5d893)
+        ;
+
+        
+    
+    
+            var circle_marker_38ecee754f90dfa6ab68d724e17593ac = L.circleMarker(
+                [28.695381, 77.181665],
+                {"bubblingMouseEvents": true, "color": "darkgreen", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "darkgreen", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_32c41ab44413cc5705ce03d004bde232 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a5bd9d4af8a1882b08fd7d46d8979475 = $(`<div id="html_a5bd9d4af8a1882b08fd7d46d8979475" style="width: 100.0%; height: 100.0%;"><b>Ashok Vihar, Delhi - DPCC</b><br>Cluster: 7<br>PM2.5: 38.8<br>Pollution Index: 0.327</div>`)[0];
+                popup_32c41ab44413cc5705ce03d004bde232.setContent(html_a5bd9d4af8a1882b08fd7d46d8979475);
+            
+        
+
+        circle_marker_38ecee754f90dfa6ab68d724e17593ac.bindPopup(popup_32c41ab44413cc5705ce03d004bde232)
+        ;
+
+        
+    
+    
+            var circle_marker_d49f65607defda58db0f779cc7caf32e = L.circleMarker(
+                [28.531346, 77.190156],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_c8355ad51941d9c38b8ea449a1abf335 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0e36e926552898924afce7ffcfd77157 = $(`<div id="html_0e36e926552898924afce7ffcfd77157" style="width: 100.0%; height: 100.0%;"><b>Sri Aurobindo Marg, Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 28.2<br>Pollution Index: 0.295</div>`)[0];
+                popup_c8355ad51941d9c38b8ea449a1abf335.setContent(html_0e36e926552898924afce7ffcfd77157);
+            
+        
+
+        circle_marker_d49f65607defda58db0f779cc7caf32e.bindPopup(popup_c8355ad51941d9c38b8ea449a1abf335)
+        ;
+
+        
+    
+    
+            var circle_marker_c4beba5b24d57432207f40d5d2084165 = L.circleMarker(
+                [28.822836, 77.101981],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_d10b412eaef32ac830a4ec346ba4477f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f44e03eff9c58755e6e7672f30745ad2 = $(`<div id="html_f44e03eff9c58755e6e7672f30745ad2" style="width: 100.0%; height: 100.0%;"><b>Narela, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 29.7<br>Pollution Index: 0.231</div>`)[0];
+                popup_d10b412eaef32ac830a4ec346ba4477f.setContent(html_f44e03eff9c58755e6e7672f30745ad2);
+            
+        
+
+        circle_marker_c4beba5b24d57432207f40d5d2084165.bindPopup(popup_d10b412eaef32ac830a4ec346ba4477f)
+        ;
+
+        
+    
+    
+            var circle_marker_0dfabf023ec3c9bf8b89972d512d3674 = L.circleMarker(
+                [28.684678, 77.076574],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_6e6c9fb57a1c6723dd46f2304b8942a2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4b015d90c59302e92ba6ae2c6239dc22 = $(`<div id="html_4b015d90c59302e92ba6ae2c6239dc22" style="width: 100.0%; height: 100.0%;"><b>Mundka, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 28.7<br>Pollution Index: 0.303</div>`)[0];
+                popup_6e6c9fb57a1c6723dd46f2304b8942a2.setContent(html_4b015d90c59302e92ba6ae2c6239dc22);
+            
+        
+
+        circle_marker_0dfabf023ec3c9bf8b89972d512d3674.bindPopup(popup_6e6c9fb57a1c6723dd46f2304b8942a2)
+        ;
+
+        
+    
+    
+            var circle_marker_3ed4178e89a10cd0cd20c5eaf2ed24a2 = L.circleMarker(
+                [28.570173, 76.933762],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_f6b232e59d66e19bdb20a3b43b9fdd6f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_04d1613244fae6d368f79e047c6c2280 = $(`<div id="html_04d1613244fae6d368f79e047c6c2280" style="width: 100.0%; height: 100.0%;"><b>Najafgarh, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 24.9<br>Pollution Index: 0.228</div>`)[0];
+                popup_f6b232e59d66e19bdb20a3b43b9fdd6f.setContent(html_04d1613244fae6d368f79e047c6c2280);
+            
+        
+
+        circle_marker_3ed4178e89a10cd0cd20c5eaf2ed24a2.bindPopup(popup_f6b232e59d66e19bdb20a3b43b9fdd6f)
+        ;
+
+        
+    
+    
+            var circle_marker_3d3a7635a368071438648a8664d8f838 = L.circleMarker(
+                [28.4417, 77.3217],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_2cb20a5f288bc297b943c7b47eef6b84 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_7f958d2d1f868e995b3a598c75dfb632 = $(`<div id="html_7f958d2d1f868e995b3a598c75dfb632" style="width: 100.0%; height: 100.0%;"><b>Sector 30, Faridabad - HSPCB</b><br>Cluster: -1<br>PM2.5: 37.8<br>Pollution Index: 0.254</div>`)[0];
+                popup_2cb20a5f288bc297b943c7b47eef6b84.setContent(html_7f958d2d1f868e995b3a598c75dfb632);
+            
+        
+
+        circle_marker_3d3a7635a368071438648a8664d8f838.bindPopup(popup_2cb20a5f288bc297b943c7b47eef6b84)
+        ;
+
+        
+    
+    
+            var circle_marker_2335e038a49bdca7bc68fd7273be504d = L.circleMarker(
+                [28.4227, 77.0667],
+                {"bubblingMouseEvents": true, "color": "indigo", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "indigo", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_b89b575d0be2fcbca6ba8d4eb370ac29 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_248194106da028bb7976408c22d7d122 = $(`<div id="html_248194106da028bb7976408c22d7d122" style="width: 100.0%; height: 100.0%;"><b>Sector-51, Gurugram - HSPCB</b><br>Cluster: 8<br>PM2.5: 59.3<br>Pollution Index: 0.353</div>`)[0];
+                popup_b89b575d0be2fcbca6ba8d4eb370ac29.setContent(html_248194106da028bb7976408c22d7d122);
+            
+        
+
+        circle_marker_2335e038a49bdca7bc68fd7273be504d.bindPopup(popup_b89b575d0be2fcbca6ba8d4eb370ac29)
+        ;
+
+        
+    
+    
+            var circle_marker_2672d5b021350b79eaac91bad6693349 = L.circleMarker(
+                [28.732528, 77.11992],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_e8106161a0e39f4566e3f864324e4f9d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d4fb415a2cd849230af06fef65053ae2 = $(`<div id="html_d4fb415a2cd849230af06fef65053ae2" style="width: 100.0%; height: 100.0%;"><b>Rohini, Delhi - DPCC</b><br>Cluster: 4<br>PM2.5: 49.9<br>Pollution Index: 0.264</div>`)[0];
+                popup_e8106161a0e39f4566e3f864324e4f9d.setContent(html_d4fb415a2cd849230af06fef65053ae2);
+            
+        
+
+        circle_marker_2672d5b021350b79eaac91bad6693349.bindPopup(popup_e8106161a0e39f4566e3f864324e4f9d)
+        ;
+
+        
+    
+    
+            var circle_marker_031c537a9931b8fddcef8d00d05eec86 = L.circleMarker(
+                [28.4275, 77.1465],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_13e27223872052557b69956bbdc352df = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_714ab9d40c4c627b38e96a1de5ba093a = $(`<div id="html_714ab9d40c4c627b38e96a1de5ba093a" style="width: 100.0%; height: 100.0%;"><b>Teri Gram, Gurugram - HSPCB</b><br>Cluster: 9<br>PM2.5: 62.8<br>Pollution Index: 0.339</div>`)[0];
+                popup_13e27223872052557b69956bbdc352df.setContent(html_714ab9d40c4c627b38e96a1de5ba093a);
+            
+        
+
+        circle_marker_031c537a9931b8fddcef8d00d05eec86.bindPopup(popup_13e27223872052557b69956bbdc352df)
+        ;
+
+        
+    
+    
+            var circle_marker_e136e6675f39d22b051be52521387770 = L.circleMarker(
+                [28.685382, 77.453839],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_2adc6165cf5e9f455021dd3785e2497d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_aa1a34413fced4956bac4d9b66c91416 = $(`<div id="html_aa1a34413fced4956bac4d9b66c91416" style="width: 100.0%; height: 100.0%;"><b>Sanjay Nagar, Ghaziabad - UPPCB</b><br>Cluster: -1<br>PM2.5: 27.5<br>Pollution Index: 0.259</div>`)[0];
+                popup_2adc6165cf5e9f455021dd3785e2497d.setContent(html_aa1a34413fced4956bac4d9b66c91416);
+            
+        
+
+        circle_marker_e136e6675f39d22b051be52521387770.bindPopup(popup_2adc6165cf5e9f455021dd3785e2497d)
+        ;
+
+        
+    
+    
+            var circle_marker_8989e35ae972ba4956b70f6639099452 = L.circleMarker(
+                [28.422681, 77.148944],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_0824cbbb3f5e9a7ea1c054d2868a9215 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5ef94ee8493f7fd8ff1156d2b69eb7c2 = $(`<div id="html_5ef94ee8493f7fd8ff1156d2b69eb7c2" style="width: 100.0%; height: 100.0%;"><b>NISE Gwal Pahari, Gurugram - IMD</b><br>Cluster: 9<br>PM2.5: 31.7<br>Pollution Index: 0.250</div>`)[0];
+                popup_0824cbbb3f5e9a7ea1c054d2868a9215.setContent(html_5ef94ee8493f7fd8ff1156d2b69eb7c2);
+            
+        
+
+        circle_marker_8989e35ae972ba4956b70f6639099452.bindPopup(popup_0824cbbb3f5e9a7ea1c054d2868a9215)
+        ;
+
+        
+    
+    
+            var circle_marker_6f9636172d40541edab66aef897a9a5f = L.circleMarker(
+                [28.656756, 77.227234],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_3494b57e77b30757dcdeae2b93c7d769 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_449af0a2414df4e7b11d08e786e0ccad = $(`<div id="html_449af0a2414df4e7b11d08e786e0ccad" style="width: 100.0%; height: 100.0%;"><b>Chandni Chowk, Delhi - IITM</b><br>Cluster: 0<br>PM2.5: 42.6<br>Pollution Index: 0.364</div>`)[0];
+                popup_3494b57e77b30757dcdeae2b93c7d769.setContent(html_449af0a2414df4e7b11d08e786e0ccad);
+            
+        
+
+        circle_marker_6f9636172d40541edab66aef897a9a5f.bindPopup(popup_3494b57e77b30757dcdeae2b93c7d769)
+        ;
+
+        
+    
+    
+            var circle_marker_2783464062cc9dfb4c48d10f116c9452 = L.circleMarker(
+                [28.5500047, 77.2431058],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_f0d192dadf3a0d369f705b5c29c40edf = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a1b460b15f68b8e37ad320d7b54a0468 = $(`<div id="html_a1b460b15f68b8e37ad320d7b54a0468" style="width: 100.0%; height: 100.0%;"><b>GK1 (Oberoi Terrace)</b><br>Cluster: 0<br>PM2.5: 4.1<br>Pollution Index: 0.000</div>`)[0];
+                popup_f0d192dadf3a0d369f705b5c29c40edf.setContent(html_a1b460b15f68b8e37ad320d7b54a0468);
+            
+        
+
+        circle_marker_2783464062cc9dfb4c48d10f116c9452.bindPopup(popup_f0d192dadf3a0d369f705b5c29c40edf)
+        ;
+
+        
+    
+    
+            var circle_marker_ed95194169c595b1b8ea3dee39a42798 = L.circleMarker(
+                [28.5266, 77.1493],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_de6671cc49a940c6406bb576d0b79a71 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_512dad351b93b2bfe4f7ce949a629c37 = $(`<div id="html_512dad351b93b2bfe4f7ce949a629c37" style="width: 100.0%; height: 100.0%;"><b>Santushti Apartments, Vasant Kunj</b><br>Cluster: 0<br>PM2.5: 36.6<br>Pollution Index: 0.393</div>`)[0];
+                popup_de6671cc49a940c6406bb576d0b79a71.setContent(html_512dad351b93b2bfe4f7ce949a629c37);
+            
+        
+
+        circle_marker_ed95194169c595b1b8ea3dee39a42798.bindPopup(popup_de6671cc49a940c6406bb576d0b79a71)
+        ;
+
+        
+    
+    
+            var circle_marker_ef797da4f338ea99a7312bf937628c08 = L.circleMarker(
+                [28.623056, 77.234167],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_2dd35acaae814354925d06e8a28b1f0c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f948457deb68ee1bbc39779c8b95e1e4 = $(`<div id="html_f948457deb68ee1bbc39779c8b95e1e4" style="width: 100.0%; height: 100.0%;"><b>Air Check</b><br>Cluster: 0<br>PM2.5: 46.8<br>Pollution Index: 0.516</div>`)[0];
+                popup_2dd35acaae814354925d06e8a28b1f0c.setContent(html_f948457deb68ee1bbc39779c8b95e1e4);
+            
+        
+
+        circle_marker_ef797da4f338ea99a7312bf937628c08.bindPopup(popup_2dd35acaae814354925d06e8a28b1f0c)
+        ;
+
+        
+    
+    
+            var circle_marker_78b2024c779ac60ccc6ca9c3d3c860b3 = L.circleMarker(
+                [28.583491, 77.431714],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_6504ed11201bc473ebf4f9d40d08f6e7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_198ba56a40d48d79ec6d472d47bdd1c8 = $(`<div id="html_198ba56a40d48d79ec6d472d47bdd1c8" style="width: 100.0%; height: 100.0%;"><b>Sector 1, Noida extension</b><br>Cluster: -1<br>PM2.5: 49.8<br>Pollution Index: 0.551</div>`)[0];
+                popup_6504ed11201bc473ebf4f9d40d08f6e7.setContent(html_198ba56a40d48d79ec6d472d47bdd1c8);
+            
+        
+
+        circle_marker_78b2024c779ac60ccc6ca9c3d3c860b3.bindPopup(popup_6504ed11201bc473ebf4f9d40d08f6e7)
+        ;
+
+        
+    
+    
+            var circle_marker_b93093d0e3759f568d6bbfc73ffad1c5 = L.circleMarker(
+                [28.40240847053802, 77.08477464826682],
+                {"bubblingMouseEvents": true, "color": "indigo", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "indigo", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_43a56f68b5e8f728a17d9fd45a08c807 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_cdaba2b51fb62ea1e86c5cda14ea89ee = $(`<div id="html_cdaba2b51fb62ea1e86c5cda14ea89ee" style="width: 100.0%; height: 100.0%;"><b>Uptitude Cloud Pvt Ltd - Sector 62, GGN</b><br>Cluster: 8<br>PM2.5: 41.5<br>Pollution Index: 0.452</div>`)[0];
+                popup_43a56f68b5e8f728a17d9fd45a08c807.setContent(html_cdaba2b51fb62ea1e86c5cda14ea89ee);
+            
+        
+
+        circle_marker_b93093d0e3759f568d6bbfc73ffad1c5.bindPopup(popup_43a56f68b5e8f728a17d9fd45a08c807)
+        ;
+
+        
+    
+    
+            var circle_marker_e2f7e33e213fc97a215d1ec1a622999a = L.circleMarker(
+                [28.5587, 77.21886],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_181235699469396a25c73999f50951ba = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_79cc142a09c94a08a1e3e62ba49c127e = $(`<div id="html_79cc142a09c94a08a1e3e62ba49c127e" style="width: 100.0%; height: 100.0%;"><b>Anand Lok</b><br>Cluster: 0<br>PM2.5: 34.2<br>Pollution Index: 0.363</div>`)[0];
+                popup_181235699469396a25c73999f50951ba.setContent(html_79cc142a09c94a08a1e3e62ba49c127e);
+            
+        
+
+        circle_marker_e2f7e33e213fc97a215d1ec1a622999a.bindPopup(popup_181235699469396a25c73999f50951ba)
+        ;
+
+        
+    
+    
+            var circle_marker_a01917f5fedb765a62c9b8e512badcd7 = L.circleMarker(
+                [28.54246, 77.191651],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_041eb6dd57776370afe33333ace7008c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3112d6037a63db55ed026dbf68c0c88f = $(`<div id="html_3112d6037a63db55ed026dbf68c0c88f" style="width: 100.0%; height: 100.0%;"><b>IIT Delhi, Delhi - IITM</b><br>Cluster: 0<br>PM2.5: 31.5<br>Pollution Index: 0.285</div>`)[0];
+                popup_041eb6dd57776370afe33333ace7008c.setContent(html_3112d6037a63db55ed026dbf68c0c88f);
+            
+        
+
+        circle_marker_a01917f5fedb765a62c9b8e512badcd7.bindPopup(popup_041eb6dd57776370afe33333ace7008c)
+        ;
+
+        
+    
+    
+            var circle_marker_38681b4549f91951044be3ce54544580 = L.circleMarker(
+                [28.62181, 77.1944633],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_9c17e58b0a73d746b63897794ab5326c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_78dbb484580cbd5009643672a7e1c43b = $(`<div id="html_78dbb484580cbd5009643672a7e1c43b" style="width: 100.0%; height: 100.0%;"><b>Talkatora Garden, Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 33.6<br>Pollution Index: 0.178</div>`)[0];
+                popup_9c17e58b0a73d746b63897794ab5326c.setContent(html_78dbb484580cbd5009643672a7e1c43b);
+            
+        
+
+        circle_marker_38681b4549f91951044be3ce54544580.bindPopup(popup_9c17e58b0a73d746b63897794ab5326c)
+        ;
+
+        
+    
+    
+            var circle_marker_e8c3611ab7f81036509613483af5a317 = L.circleMarker(
+                [28.540721, 77.168544],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_89db9dbae476b3b8dd61717a9ec60b36 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_dbc5f2190d388a0ba2ae2cd6d4e83832 = $(`<div id="html_dbc5f2190d388a0ba2ae2cd6d4e83832" style="width: 100.0%; height: 100.0%;"><b>JNU, Delhi - DPCC</b><br>Cluster: 0<br>PM2.5: 31.6<br>Pollution Index: 0.162</div>`)[0];
+                popup_89db9dbae476b3b8dd61717a9ec60b36.setContent(html_dbc5f2190d388a0ba2ae2cd6d4e83832);
+            
+        
+
+        circle_marker_e8c3611ab7f81036509613483af5a317.bindPopup(popup_89db9dbae476b3b8dd61717a9ec60b36)
+        ;
+
+        
+    
+    
+            var circle_marker_1b1c311906bf34adaa164e1d3bef0a04 = L.circleMarker(
+                [28.594004, 76.909423],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_31d9bccdd69d0e4fe78c3250a7d77faf = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_008b15825b85c0672c4f01363ad82ca4 = $(`<div id="html_008b15825b85c0672c4f01363ad82ca4" style="width: 100.0%; height: 100.0%;"><b>NSUT Jaffarpur, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 34.4<br>Pollution Index: 0.206</div>`)[0];
+                popup_31d9bccdd69d0e4fe78c3250a7d77faf.setContent(html_008b15825b85c0672c4f01363ad82ca4);
+            
+        
+
+        circle_marker_1b1c311906bf34adaa164e1d3bef0a04.bindPopup(popup_31d9bccdd69d0e4fe78c3250a7d77faf)
+        ;
+
+        
+    
+    
+            var circle_marker_fbe7f1c751cb2022a59b10cea52e4781 = L.circleMarker(
+                [28.615828, 77.271992],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_9b3ce25daee39fffec6f79cb9bb003e6 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1fd19ef7f75f5cbb0726920a2a711a6e = $(`<div id="html_1fd19ef7f75f5cbb0726920a2a711a6e" style="width: 100.0%; height: 100.0%;"><b>Commonwealth Sports Complex, Delhi - DPCC</b><br>Cluster: 5<br>PM2.5: 37.3<br>Pollution Index: 0.270</div>`)[0];
+                popup_9b3ce25daee39fffec6f79cb9bb003e6.setContent(html_1fd19ef7f75f5cbb0726920a2a711a6e);
+            
+        
+
+        circle_marker_fbe7f1c751cb2022a59b10cea52e4781.bindPopup(popup_9b3ce25daee39fffec6f79cb9bb003e6)
+        ;
+
+        
+    
+    
+            var circle_marker_a8f1bad1b11633bfa5e92911edc67b29 = L.circleMarker(
+                [28.493624, 77.201159],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_3aa01eaed720bcff65c3e60e9ef1ae2c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4a3865440b0757120f13307c08734be5 = $(`<div id="html_4a3865440b0757120f13307c08734be5" style="width: 100.0%; height: 100.0%;"><b>IGNOU_Maidan Garhi, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 12.3<br>Pollution Index: 0.116</div>`)[0];
+                popup_3aa01eaed720bcff65c3e60e9ef1ae2c.setContent(html_4a3865440b0757120f13307c08734be5);
+            
+        
+
+        circle_marker_a8f1bad1b11633bfa5e92911edc67b29.bindPopup(popup_3aa01eaed720bcff65c3e60e9ef1ae2c)
+        ;
+
+        
+    
+    
+            var circle_marker_37291a430c6864d840cc8dffa265696a = L.circleMarker(
+                [28.594169, 77.1251],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_cde7e99c02343aa0b2b9c987706df78f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_14d73931fb4b70b09cafe9124a751dc8 = $(`<div id="html_14d73931fb4b70b09cafe9124a751dc8" style="width: 100.0%; height: 100.0%;"><b>Cantonment Area, Delhi - DPCC</b><br>Cluster: -1<br>PM2.5: 12.9<br>Pollution Index: 0.133</div>`)[0];
+                popup_cde7e99c02343aa0b2b9c987706df78f.setContent(html_14d73931fb4b70b09cafe9124a751dc8);
+            
+        
+
+        circle_marker_37291a430c6864d840cc8dffa265696a.bindPopup(popup_cde7e99c02343aa0b2b9c987706df78f)
+        ;
+
+        
+    
+    
+            var circle_marker_35724073fe699baffa40fcc95cbe9795 = L.circleMarker(
+                [28.61119, 77.34206],
+                {"bubblingMouseEvents": true, "color": "lightblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_d23ad0343079d2e3ff138e75d657c721 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_154c95f7fd2fcc6af6fc95c72d26cf9a = $(`<div id="html_154c95f7fd2fcc6af6fc95c72d26cf9a" style="width: 100.0%; height: 100.0%;"><b>Prashant Garden, Khora - UPPCB</b><br>Cluster: 3<br>PM2.5: 58.6<br>Pollution Index: 0.259</div>`)[0];
+                popup_d23ad0343079d2e3ff138e75d657c721.setContent(html_154c95f7fd2fcc6af6fc95c72d26cf9a);
+            
+        
+
+        circle_marker_35724073fe699baffa40fcc95cbe9795.bindPopup(popup_d23ad0343079d2e3ff138e75d657c721)
+        ;
+
+        
+    
+    
+            var circle_marker_ee435138fbaf57ca2abcb5492e6641f4 = L.circleMarker(
+                [28.739153, 77.273668],
+                {"bubblingMouseEvents": true, "color": "cadetblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "cadetblue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_815a51fcdb6e4134e74d379ff2a87a8b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_473d349b261fb1d2d9178db3ffaa30e2 = $(`<div id="html_473d349b261fb1d2d9178db3ffaa30e2" style="width: 100.0%; height: 100.0%;"><b>Ved Vihar-Loni, Ghaziabad - UPPCB</b><br>Cluster: 6<br>PM2.5: 40.7<br>Pollution Index: 0.365</div>`)[0];
+                popup_815a51fcdb6e4134e74d379ff2a87a8b.setContent(html_473d349b261fb1d2d9178db3ffaa30e2);
+            
+        
+
+        circle_marker_ee435138fbaf57ca2abcb5492e6641f4.bindPopup(popup_815a51fcdb6e4134e74d379ff2a87a8b)
+        ;
+
+        
+    
+    
+            var circle_marker_17d62cce11b32b67a71b3a76c461d282 = L.circleMarker(
+                [28.694528, 77.494705],
+                {"bubblingMouseEvents": true, "color": "lightgray", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgray", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+        var popup_b892e8f9ad975974178e9b6952c75973 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3f0ca1192ff66738072a421eef594d96 = $(`<div id="html_3f0ca1192ff66738072a421eef594d96" style="width: 100.0%; height: 100.0%;"><b>Govindpuram, Ghaziabad - UPPCB</b><br>Cluster: -1<br>PM2.5: 23.0<br>Pollution Index: 0.148</div>`)[0];
+                popup_b892e8f9ad975974178e9b6952c75973.setContent(html_3f0ca1192ff66738072a421eef594d96);
+            
+        
+
+        circle_marker_17d62cce11b32b67a71b3a76c461d282.bindPopup(popup_b892e8f9ad975974178e9b6952c75973)
+        ;
+
+        
+    
+    
+            var circle_a71b9b0830ad6224f67a05464f2f27e8 = L.circle(
+                [28.41255423526901, 77.0757373241334],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": "5,5", "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3000, "stroke": true, "weight": 2}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+            var circle_bfe1bee700067684062492dd8e467e30 = L.circle(
+                [28.697587, 77.173559],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": "5,5", "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3000, "stroke": true, "weight": 2}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+            var circle_fb2a9c34858c49ea0c3232735f82981a = L.circle(
+                [28.666783533333334, 77.3112718],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": "5,5", "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3000, "stroke": true, "weight": 2}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+            var circle_589a4b76e4ca910d745c48e2d4518274 = L.circle(
+                [28.6524389, 77.14588064],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": "5,5", "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3000, "stroke": true, "weight": 2}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+            var circle_e97637364d3569aeea45a9fcc120515a = L.circle(
+                [28.7482235, 77.27623],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": "5,5", "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 3000, "stroke": true, "weight": 2}
+            ).addTo(feature_group_cd595a9880204be5810838cb5d7f5375);
+        
+    
+            var layer_control_c33bfa62b16d8e742e45105ae27b3b97_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_f5cb210c2c1784b9e5e5998f9e8cc054,
+                },
+                overlays :  {
+                    "PM2.5-only Hotspots" : feature_group_ae944c92ce7e1f105f6e463510b4801a,
+                    "Composite Index Hotspots" : feature_group_cd595a9880204be5810838cb5d7f5375,
+                },
+            };
+            let layer_control_c33bfa62b16d8e742e45105ae27b3b97 = L.control.layers(
+                layer_control_c33bfa62b16d8e742e45105ae27b3b97_layers.base_layers,
+                layer_control_c33bfa62b16d8e742e45105ae27b3b97_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_c085c6c496143b80b5f422f2c8cccd61);
+
+        
+</script>
+</html>

@@ -1,0 +1,12 @@
+# Full pipeline: data download -> clustering -> forecasting -> dashboard
+-r requirements.txt
+numpy==2.5.2
+scikit-learn==1.9.0
+xgboost==3.4.1
+matplotlib==3.11.2
+xarray==2026.7.0
+netCDF4==1.7.4
+cdsapi==0.7.7
+requests==2.34.2
+python-dotenv
+pytest
